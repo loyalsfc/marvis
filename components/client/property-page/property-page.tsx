@@ -2,7 +2,7 @@
 
 import { PropertyProps } from '@/@types'
 import { Button } from '@/components/ui/button'
-import { cn, downloadImage } from '@/utils/utils'
+import { cn, downloadImage, getFeaturedImage } from '@/utils/utils'
 import { Bath, BedDoubleIcon, CalendarDaysIcon, Check, CheckCircle2, FileDigitIcon, FileTextIcon, HomeIcon, ImageIcon, InfoIcon, LocateFixedIcon, PlaySquareIcon, Share2 } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
@@ -16,6 +16,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 interface Props {
     data: PropertyProps[] | null
@@ -23,7 +25,8 @@ interface Props {
 
 
 function PropertyPage({data}:Props) {
-    const [date, setDate] = React.useState<Date>()
+    const [date, setDate] = React.useState<Date>();
+    const pathName = usePathname();
 
     const {created_at, property_type, property_title, property_address, property_location, property_image, bedroom, bath, year_built, units, property_description, additional_details, agents_table, rent_price, features} = data![0]
     
@@ -48,10 +51,10 @@ function PropertyPage({data}:Props) {
                                 alt='Property Image'
                                 className='object-cover'
                             />
-                            <button className='hidden group-last:flex items-center font-bold text-sm px-4 py-2 gap-1 rounded bg-white  hover:bg-orange hover:text-white transition-all z-10 absolute bottom-4 right-4'>
+                            <Link href={pathName + "?gallery-view=2"} className='hidden group-last:flex items-center font-bold text-sm px-4 py-2 gap-1 rounded bg-white  hover:bg-orange hover:text-white transition-all z-10 absolute bottom-4 right-4'>
                                 <ImageIcon color='#FF5B19' size={18}/> 
                                 View All Photos
-                            </button>
+                            </Link>
                         </div>
                     )
                 })}
@@ -210,10 +213,6 @@ function PropertyPage({data}:Props) {
                         <span className='text-sm font-medium'>It's free, with no obligation - cancel anytime</span>
                     </div>
                 </div>
-            </div>
-
-            <div>
-                
             </div>
         </div>
     )

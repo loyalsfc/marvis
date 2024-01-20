@@ -164,6 +164,7 @@ async function Page() {
                                         location={item.property_address}
                                         bed={item.bedroom}
                                         bathroom={item.bath}
+                                        slug={item.slug}
                                     />
                                 })}
                             </ul>
@@ -220,7 +221,7 @@ async function Page() {
                 </div>
             </section>
 
-            <section className="bg-orange px-4 py-16 mb-20">
+            <section className="bg-primary px-4 py-16 mb-20">
                 <div className="container mx-auto">
                     <div className='flex text-white flex-col items-center text-center max-w-xl mx-auto'>
                         <h5 className='text-primary text-xl font-semibold'>No Spam, P   romise</h5>

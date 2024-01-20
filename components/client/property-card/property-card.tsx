@@ -18,7 +18,7 @@ interface Props {
 function PropertyCard({image, price, name, location, bed, bathroom, slug}:Props) {
     return (
         <li>
-            <Link href={"/properties/"+slug} className={cn("rounded-lg relative bg-white border z-10 border-grey-100/50 flex flex-col hover:shadow transition-all")}>
+            <Link href={"/properties/"+slug} className={cn("rounded-lg relative bg-white border z-10 border-grey-100/50 flex flex-col hover:shadow transition-all h-full")}>
                 <AspectRatio ratio={16 / 9} className='rounded-t-lg overflow-hidden'>
                     <Image
                         src={image}
