@@ -3,29 +3,20 @@
 import { PropertyProps } from '@/@types'
 import { Button } from '@/components/ui/button'
 import { cn, downloadImage, getFeaturedImage } from '@/utils/utils'
-import { Bath, BedDoubleIcon, CalendarDaysIcon, Check, CheckCircle2, FileDigitIcon, FileTextIcon, HomeIcon, ImageIcon, InfoIcon, LocateFixedIcon, PlaySquareIcon, Share2 } from 'lucide-react'
+import { Bath, BedDoubleIcon, CalendarDaysIcon, Check, CheckCircle2, FileDigitIcon, FileTextIcon, ImageIcon, InfoIcon, Share2 } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
 
-import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import RequestTour from '@/components/request-tour/request-tour'
 
 interface Props {
     data: PropertyProps[] | null
 }
 
-
 function PropertyPage({data}:Props) {
-    const [date, setDate] = React.useState<Date>();
     const pathName = usePathname();
 
     const {created_at, property_type, property_title, property_address, property_location, property_image, bedroom, bath, year_built, units, property_description, additional_details, agents_table, rent_price, features} = data![0]
@@ -143,28 +134,32 @@ function PropertyPage({data}:Props) {
                                 </tbody>
                             </table>
                         </div>
-                        <h4 className='font-bold text-xl mb-2 mt-8'>Rental Features</h4>
-                        <ul>
-                            {features?.map((item, index) => {
-                                return <li key={index}>{item}</li>
-                            })}
-                        </ul>
-                        <h4 className='font-bold text-xl mb-2 mt-8'>Additional Features</h4>
-                        <table className=''>
-                            <tbody>
-                                {additional_details.map((item, index) => {
-                                    return (
-                                        <tr key={item.id}>
-                                            <td><Check size={18}/> </td>
-                                            <td className='px-4'>{item.title}</td>
-                                            <td>{item.value}</td>
-                                        </tr>
-                                    )
+                        {(features && features?.length > 0) &&<>
+                            <h4 className='font-bold text-xl mb-2 mt-8'>Rental Features</h4>
+                            <ul>
+                                {features?.map((item, index) => {
+                                    return <li key={index}>{item}</li>
                                 })}
-                            </tbody>
-                        </table>
+                            </ul>
+                        </>}
+                        {additional_details.length > 0 && (additional_details[0].title !== "" && additional_details[0].value !== "") && <>
+                            <h4 className='font-bold text-xl mb-2 mt-8'>Additional Features</h4>
+                            <table className=''>
+                                <tbody>
+                                    {additional_details.map((item, index) => {
+                                        if(item.title === "" && item.value === "") return;
+                                        return (
+                                            <tr key={item.id}>
+                                                <td><Check size={18}/> </td>
+                                                <td className='px-4'>{item.title}</td>
+                                                <td>{item.value}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </>}
                     </div>
-
                     <p className='font-medium py-4'>
                         You are agree to mavris' Terms of Use & Privacy Policy. By choosing to contact a property, you also agree theat Estatery Group, landlords, and property managers may call or text yoou about any inquiries you submit through our services, which may involve use of automated means and prerecorded/articial voices. You don't need to consent as a condition of renting any property, or buying any other goods or services. Message/data rates may apply.
                     </p>
@@ -174,44 +169,7 @@ function PropertyPage({data}:Props) {
                     <h3 className='font-semibold mb-3   '><span className='text-orange font-bold text-2xl'>₦{rent_price}</span>/year</h3>
                     <Button className='bg-orange text-white font-semibold w-full gap-1'><FileTextIcon size={18}/> Apply Now</Button>
 
-                    <div className='mt-4 border-t border-t-grey-200 pt-5'>
-                        <h4 className='font-bold text-xl '>Request a home tour</h4>
-                        <div className='py-4 mb-2 grid grid-cols-2 gap-4'>
-                            <button className='tour-btn'><HomeIcon size={18}/> In Person</button>
-                            <button className='tour-btn active-tour'><PlaySquareIcon size={18}/> Virtual </button>
-                        </div>
-
-                        <div>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <Button
-                                        variant={"outline"}
-                                        className={cn(
-                                            "w-full justify-start text-left font-normal flex",
-                                            !date && "text-muted-foreground"
-                                        )}
-                                    >
-                                        <CalendarIcon className="mr-2 h-4 w-4" />
-                                        {date ? format(date, "PPP") : <span className='block py-2'>Select Tour Date</span>}
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0">
-                                    <Calendar
-                                    mode="single"
-                                    selected={date}
-                                    onSelect={setDate}
-                                    initialFocus
-                                    />
-                                </PopoverContent>
-                            </Popover>
-                        </div>
-
-                        <Button className='w-full bg-orange my-4 font-semibold gap-2'>
-                            <LocateFixedIcon/> Request Tour
-                        </Button>
-                        
-                        <span className='text-sm font-medium'>It's free, with no obligation - cancel anytime</span>
-                    </div>
+                    <RequestTour />
                 </div>
             </div>
         </div>

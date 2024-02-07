@@ -16,7 +16,6 @@ function GalleryImages({galleryImages}:{galleryImages: PropertyProps["property_i
     const pathName = usePathname();
     const router = useRouter()
     const showGallery = searchParams.has('gallery-view');
-    const [currentImage, setCurrentImage] = useState(2)
 
     const hideGallery = () => {
         //Hide gallery by removing the search parameters

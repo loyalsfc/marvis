@@ -20,6 +20,11 @@ async function Page({params}:{params: {slug: string}}) {
         .select()
         .limit(3)
         .neq("slug", params.slug)
+
+    
+    if(!data || !relatedProperties){
+        return <p className='text-center pt-4'>An error occur</p>
+    }
     
     return (
         <div>

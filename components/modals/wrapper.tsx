@@ -9,13 +9,14 @@ interface Props {
     Icon?: FC,
     btnText?: string
     btnRef?: Ref<HTMLButtonElement>
+    btnClass?: string;
 }
 
-function ModalWrapper({children, modalTitle, modalDescription, Icon, btnText, btnRef}:Props) {
+function ModalWrapper({children, modalTitle, modalDescription, Icon, btnText, btnRef, btnClass}:Props) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button ref={btnRef}>
+                <button className={btnClass} ref={btnRef}>
                     {Icon && <Icon/>}
                     {btnText}
                 </button>
