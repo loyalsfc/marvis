@@ -18,9 +18,16 @@ enum tour  {
     INPERSON = "in person"
 }
 
-function RequestTour() {
-    const [date, setDate] = React.useState<Date>();
+function RequestTour({slug, agentId}:{slug:string; agentId:string}) {
+    const [date, setDate] = React.useState<Date>(new Date());
     const [tourType, setTourType] = useState<tour>(tour.VIRTUAL)
+
+    const tourDate = (e: Date | undefined) => {
+        if(e && e.getTime() > new Date().getTime()){
+            setDate(e)
+        }
+    }
+
     return (
         <div className='mt-4 border-t border-t-grey-200 pt-5'>
             <h4 className='font-bold text-xl '>Request a home tour</h4>
@@ -55,16 +62,16 @@ function RequestTour() {
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
                         <Calendar
-                        mode="single"
-                        selected={date}
-                        onSelect={setDate}
-                        initialFocus
+                            mode="single"
+                            selected={date}
+                            onSelect={(e)=>tourDate(e)}
+                            initialFocus
                         />
                     </PopoverContent>
                 </Popover>
             </div>
 
-            <RequestModal />
+            <RequestModal date={date} tourType={tourType} slug={slug} agentId={agentId} />
             
             <span className='text-sm font-medium'>It's free, with no obligation - cancel anytime</span>
         </div>

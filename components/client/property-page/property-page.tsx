@@ -13,13 +13,14 @@ import { usePathname } from 'next/navigation'
 import RequestTour from '@/components/request-tour/request-tour'
 
 interface Props {
-    data: PropertyProps[] | null
+    data: PropertyProps[] | null;
+    slug: string
 }
 
-function PropertyPage({data}:Props) {
+function PropertyPage({data, slug}:Props) {
     const pathName = usePathname();
 
-    const {created_at, property_type, property_title, property_address, property_location, property_image, bedroom, bath, year_built, units, property_description, additional_details, agents_table, rent_price, features} = data![0]
+    const {created_at, property_type, property_title, property_address, property_location, property_image, bedroom, bath, year_built, units, property_description, additional_details, agents_table, rent_price, features, agent_id} = data![0]
     
     return (
         <div>
@@ -169,7 +170,7 @@ function PropertyPage({data}:Props) {
                     <h3 className='font-semibold mb-3   '><span className='text-orange font-bold text-2xl'>₦{rent_price}</span>/year</h3>
                     <Button className='bg-orange text-white font-semibold w-full gap-1'><FileTextIcon size={18}/> Apply Now</Button>
 
-                    <RequestTour />
+                    <RequestTour slug={slug} agentId={agent_id} />
                 </div>
             </div>
         </div>

@@ -35,7 +35,7 @@ async function Page({params}:{params: {slug: string}}) {
                         <FaAngleLeft />
                         Back to map 
                     </Link>
-                    {data && <PropertyPage data={data} />}
+                    {data && <PropertyPage data={data} slug={params.slug} />}
                 </div>
             </div>
             <div className=' bg-gray-200/30 py-10'>
