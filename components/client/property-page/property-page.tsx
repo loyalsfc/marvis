@@ -2,8 +2,8 @@
 
 import { PropertyProps } from '@/@types'
 import { Button } from '@/components/ui/button'
-import { cn, downloadImage, getFeaturedImage } from '@/utils/utils'
-import { Bath, BedDoubleIcon, CalendarDaysIcon, Check, CheckCircle2, FileDigitIcon, FileTextIcon, ImageIcon, InfoIcon, Share2 } from 'lucide-react'
+import { cn, downloadImage } from '@/utils/utils'
+import { Bath, BedDoubleIcon, CalendarDaysIcon, Check, CheckCircle2, FileDigitIcon, FileTextIcon, ImageIcon, InfoIcon, Phone, Share2 } from 'lucide-react'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
@@ -11,6 +11,7 @@ import { FaHeart } from 'react-icons/fa'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import RequestTour from '@/components/request-tour/request-tour'
+import MessageModal from './ask-question/question-modal'
 
 interface Props {
     data: PropertyProps[] | null;
@@ -98,12 +99,21 @@ function PropertyPage({data, slug}:Props) {
                                         alt='God is good'
                                     />
                                 </div>
-                                <div>
+                                <div className='mr-auto'>
                                     <h5 className='font-bold text-lg'>{agents_table?.full_name}</h5>
                                     <span className='text-sm font-semibold'>{agents_table?.agency_name}</span>
                                 </div>
-                                <Button className='text-orange bg-orange/20 font-medium ml-auto'>Ask a question</Button>
-                                <Button className='text-orange bg-orange/20 font-medium gap-2'><InfoIcon /> Get more info</Button>
+                                <div>
+                                    <MessageModal 
+                                        slug={slug}
+                                        agentId={agent_id}
+                                    />
+                                </div>
+                                <Link href={"tel:"+agents_table?.phone_number}>
+                                    <Button className='text-orange bg-orange/20 font-medium gap-2'>
+                                        <Phone /> Call Agent
+                                    </Button>
+                                </Link>
                             </div>
                         </div>
                     </div>
