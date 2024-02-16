@@ -13,18 +13,18 @@ import { Input } from '@/components/ui/input'
 
 function SearchBar() {
     return (
-        <div className='flex items-end gap-4 bg-white shadow-xl w-fit p-4 rounded-md mt-8'>
-            <div>
-                <label htmlFor="prop-location">Location</label>
+        <form className='flex flex-col sm:flex-row items-end gap-4 bg-white shadow-xl w-full md:w-fit p-4 rounded-md mt-8'>
+            <div className='w-full'>
+                <label htmlFor="prop-location" className='font-medium'>Location</label>
                 <Input 
                     type="text" 
                     defaultValue="Lagos Nigeria"
-                    className='border-none px-0 w-52' />
+                    className='w-full md:w-52 focus:border focus:border-orange' />
             </div>
-            <div>
-                <label htmlFor="prop-location">Propert Type</label>
+            <div className='w-full'>
+                <label htmlFor="prop-location" className='font-medium'>Propert Type</label>
                 <Select>
-                    <SelectTrigger className="w-52 px-0 border-none">
+                    <SelectTrigger className="w-full md:w-52">
                         <SelectValue placeholder="Select Property Type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -39,8 +39,8 @@ function SearchBar() {
                     </SelectContent>
                 </Select>
             </div>
-            <Button className='bg-orange'>Browse Property</Button>
-        </div>
+            <Button className='bg-orange w-full md:w-fit'>Browse Property</Button>
+        </form>
     )
 }
 
