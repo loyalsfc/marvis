@@ -11,10 +11,10 @@ async function Page() {
 
     
     return (
-        <div className='bg-[#F7f7f7] py-12'>
+        <div className='bg-[#F7f7f7] py-10 md:py-12'>
             <div className="mx-auto max-w-7xl">
-                <div className='container mx-auto'>
-                    <h1 className='text-3xl font-bold text-orange mb-6'>Search properties to rent</h1>
+                <div className='container mx-auto px-4 md:px-8'>
+                    <h1 className='text-2xl md:text-3xl text-center md:text-left font-bold text-orange mb-6'>Search properties to rent</h1>
                     <PropertyList data={data} />
                 </div>
             </div>

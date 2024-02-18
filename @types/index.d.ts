@@ -119,3 +119,10 @@ export interface PropertyUnits{
     isAvailable: boolean,
     rent_duration: string
   }
+
+  export interface PropertyFilter{
+    location: string;
+    type: string;
+    beds: string;
+    priceRange: string;
+  }

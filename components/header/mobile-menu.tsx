@@ -9,7 +9,7 @@ import { Button } from '../ui/button'
 function MobileMenu() {
     const [showMenu, setShowMenu] = useState(false)
     return (
-        <div>
+        <div className='md:hidden'>
             <button 
                 onClick={()=>setShowMenu(true)}
                 className='md:hidden h-8 w-8 grid place-content-center rounded-md hover:bg-orange/40 transition-all'
