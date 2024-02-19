@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import RequestTour from '@/components/request-tour/request-tour'
 import MessageModal from './ask-question/question-modal'
+import PropertyInfoCard from './property-info-card'
 
 interface Props {
     data: PropertyProps[] | null;
@@ -25,18 +26,22 @@ function PropertyPage({data, slug}:Props) {
     
     return (
         <div>
-            <div className='flex items-center gap-4'>
-                <h2 className='text-3xl font-bold text-orange'>{property_title}</h2>
-                <Button className='ml-auto bg-grey-200 border border-orange text-orange gap-2 hover:bg-orange hover:text-white'><Share2 /> Share</Button>
-                <Button className=' bg-grey-200 border border-orange text-orange gap-2 hover:bg-orange hover:text-white'><FaHeart/> Favorites</Button>
+            <div className='flex flex-col sm:flex-row items-center gap-4 pt-4'>
+                <div className='w-full'>
+                    <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-orange'>{property_title}</h2>
+                    <span className='text-sm sm:text-base capitalize font-medium'>{property_address}, {property_location}</span>
+                </div>
+                <div className='flex gap-4 w-full sm:w-fit sm:ml-auto'>
+                    <Button className='property-btn'><Share2 /> Share</Button>
+                    <Button className='property-btn'><FaHeart/> Favorites</Button>
+                </div>
             </div>
-            <span className=' capitalize font-medium'>{property_address}, {property_location}</span>
 
-            <ul className={cn("grid gap-6 py-10", property_image.length === 2 && "grid-cols-2", property_image.length > 2 && "grid-cols-12")}>
+            <ul className={cn("grid gap-4 md:gap-6 py-10", property_image.length === 2 && "grid-cols-2", property_image.length > 2 && "grid-cols-12")}>
                 {property_image.map((item, index) => {
                     if(index > 2) return
                     return(
-                        <div className={cn("relative rounded group aspect-video overflow-hidden", property_image.length > 2 && "col-span-4 first:col-span-8 first:row-span-2")}>
+                        <li className={cn("relative rounded group aspect-video overflow-hidden", property_image.length > 2 && "col-span-6 sm:col-span-4 first:col-span-12 sm:first:col-span-8 first:row-span-2")}>
                             <Image
                                 key={index}
                                 src={downloadImage(item.url, "property_images")}
@@ -44,76 +49,57 @@ function PropertyPage({data, slug}:Props) {
                                 alt='Property Image'
                                 className='object-cover'
                             />
-                            <Link href={pathName + "?gallery-view=2"} className='hidden group-last:flex items-center font-bold text-sm px-4 py-2 gap-1 rounded bg-white  hover:bg-orange hover:text-white transition-all z-10 absolute bottom-4 right-4'>
-                                <ImageIcon color='#FF5B19' size={18}/> 
+                            <Link href={pathName + "?gallery-view=2"} className='hidden group-last:flex items-center font-bold text-xs sm:text-sm p-2 sm:px-4 gap-0.5 sm:gap-1 rounded bg-white  hover:bg-orange hover:text-white transition-all z-10 absolute bottom-2 md:bottom-4 right-2 md:right-4'>
+                                <ImageIcon color='#FF5B19' size={16}/> 
                                 View All Photos
                             </Link>
-                        </div>
+                        </li>
                     )
                 })}
             </ul>
-            <div className="grid grid-cols-12 gap-6 items-start">
-                <div className=' col-span-8'>
-                    <div className='flex justify-between p-6 mb-10 bg-grey-200 rounded-lg'>
-                        {bedroom && 
-                            <div>
-                                <p className='font-semibold mb-1'>Bedroom</p>
-                                <span className='flex items-center gap-1'><BedDoubleIcon />  {bedroom}</span>
-                            </div>
-                        }
-                        {bath && 
-                            <div>
-                                <p className='font-semibold mb-1'>Bath</p>
-                                <span className='flex items-center gap-1'><Bath />  {bath}</span>
-                            </div>
-                        }
-                        <div>
-                            <p className='font-semibold mb-1'>Bath</p>
-                            <span className='flex items-center gap-1'><CheckCircle2 /> Active</span>
-                        </div>
-                        {year_built && 
-                            <div>
-                                <p className='font-semibold mb-1'>Year Built</p>
-                                <span className='flex items-center gap-1'><CalendarDaysIcon />  {year_built}</span>
-                            </div>
-                        }
-                        <div>
-                            <p className='font-semibold mb-1'>Units</p>
-                            <span className='flex items-center gap-1'><FileDigitIcon /> {units}</span>
-                        </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                <div className=' md:col-span-8'>
+                    <div className='flex justify-between gap-6 py-6 px-4 sm:px-6 mb-10 bg-grey-200 rounded-lg flex-wrap'>
+                        {bedroom && <PropertyInfoCard Icon={BedDoubleIcon} title='Bedroom' count={bedroom} />}
+                        {bath && <PropertyInfoCard Icon={Bath} title='Bath' count={bath} /> }
+                        <PropertyInfoCard Icon={CheckCircle2} title='Active' count={"Active"} />
+                        {year_built && <PropertyInfoCard Icon={CalendarDaysIcon} title='Year Built' count={year_built} />}
+                        <PropertyInfoCard Icon={FileDigitIcon} title='Units' count={units} />
                     </div>
                     
                     <article>
                         <h4 className='font-bold text-xl mb-2'>About this home</h4>
-                        <p>{property_description}</p>
+                        <div dangerouslySetInnerHTML={{ __html: property_description }} />
                     </article>
 
-                    <div className='border border-grey-100 bg-grey-100/5 px-6 py-4 rounded mt-8'>
+                    <div className='border border-grey-100 bg-grey-100/5 px-6 py-6 sm:py-4 rounded mt-8'>
                         <p className='font-semibold mb-6'>Listed by property owner</p>
                         <div>
-                            <div className='flex items-center gap-4'>
-                                <div className='h-16 w-16 rounded-full overflow-hidden relative'>
-                                    <Image
-                                        src={downloadImage(agents_table ? agents_table?.profile_image : "")}
-                                        fill
-                                        alt='God is good'
-                                    />
+                            <div className='flex sm:items-center flex-col sm:flex-row gap-3 lg:gap-4'>
+                                <div className='flex gap-3 lg:gap-4'>
+                                    <div className='h-16 w-16 rounded-full overflow-hidden relative'>
+                                        <Image
+                                            src={downloadImage(agents_table ? agents_table?.profile_image : "")}
+                                            fill
+                                            alt='God is good'
+                                        />
+                                    </div>
+                                    <div className='mr-auto'>
+                                        <h5 className='font-bold text-lg'>{agents_table?.full_name}</h5>
+                                        <span className='text-sm font-semibold'>{agents_table?.agency_name}</span>
+                                    </div>
                                 </div>
-                                <div className='mr-auto'>
-                                    <h5 className='font-bold text-lg'>{agents_table?.full_name}</h5>
-                                    <span className='text-sm font-semibold'>{agents_table?.agency_name}</span>
-                                </div>
-                                <div>
+                                <div className='ml-auto w-full sm:w-fit flex flex-col sm:flex-row md:flex-col min-[928px]:flex-row min-[928px]:items-center items-stretch gap-3 sm:gap-1 min-[928px]:gap-3 lg:gap-4 pt-4 sm:pt-0'>
                                     <MessageModal 
                                         slug={slug}
                                         agentId={agent_id}
                                     />
+                                    <Link href={"tel:"+agents_table?.phone_number} className='block'>
+                                        <Button className='text-orange bg-orange/20 font-medium gap-2 w-full'>
+                                            <Phone /> Call Agent
+                                        </Button>
+                                    </Link>
                                 </div>
-                                <Link href={"tel:"+agents_table?.phone_number}>
-                                    <Button className='text-orange bg-orange/20 font-medium gap-2'>
-                                        <Phone /> Call Agent
-                                    </Button>
-                                </Link>
                             </div>
                         </div>
                     </div>
@@ -175,7 +161,7 @@ function PropertyPage({data, slug}:Props) {
                         You are agree to mavris' Terms of Use & Privacy Policy. By choosing to contact a property, you also agree theat Estatery Group, landlords, and property managers may call or text yoou about any inquiries you submit through our services, which may involve use of automated means and prerecorded/articial voices. You don't need to consent as a condition of renting any property, or buying any other goods or services. Message/data rates may apply.
                     </p>
                 </div>
-                <div className="col-span-4 border border-grey-100/50 rounded p-4">
+                <div className="md:col-span-4 border border-grey-100/50 rounded p-4">
                     <span className='font-semibold'>Rent price</span>
                     <h3 className='font-semibold mb-3   '><span className='text-orange font-bold text-2xl'>₦{rent_price}</span>/year</h3>
                     <Button className='bg-orange text-white font-semibold w-full gap-1'><FileTextIcon size={18}/> Apply Now</Button>

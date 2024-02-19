@@ -119,7 +119,7 @@
     @apply font-medium py-2 border-b-2 border-b-transparent hover:border-b-orange hover:text-orange cursor-pointer
   }
   .tour-btn{
-    @apply border border-grey-100/50 px-4 py-2 flex gap-2 items-center justify-center rounded-md font-medium hover:scale-105 transition-all
+    @apply border border-grey-100/50 px-2 lg:px-4 py-2 flex gap-1 lg:gap-2 items-center justify-center rounded-md font-medium hover:scale-105 transition-all
   }
   .active-tour{
     @apply border-orange bg-orange/20 text-orange
@@ -140,6 +140,10 @@
     .no-scrollbar {
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
+    }
+
+    .property-btn{
+      @apply bg-grey-200 border border-orange text-orange gap-2 hover:bg-orange hover:text-white w-full sm:w-fit
     }
   }
 }

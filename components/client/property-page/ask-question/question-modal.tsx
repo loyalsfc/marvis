@@ -70,7 +70,7 @@ function MessageModal({slug, agentId}: Props) {
         <ModalWrapper
             modalTitle='Ask A Question'
             btnText="Ask a question"
-            btnClass="text-orange bg-orange/20 font-medium w-full my-4 gap-2 flex items-center justify-center rounded-md px-4 py-2 hover:bg-primary"
+            btnClass="text-orange bg-orange/20 font-medium w-full min-[928px]:my-4 gap-2 flex items-center justify-center rounded-md px-4 py-2 hover:bg-primary"
             btnRef={closeBtnRef}
         >
           <Form {...form}>
