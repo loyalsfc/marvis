@@ -103,30 +103,39 @@ function PropertyPage({data, slug}:Props) {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="md:col-span-4 border border-grey-100/50 rounded p-4">
+                    <span className='font-semibold'>Rent price</span>
+                    <h3 className='font-semibold mb-3   '><span className='text-orange font-bold text-2xl'>₦{rent_price}</span>/year</h3>
+                    <Button className='bg-orange text-white font-semibold w-full gap-1'><FileTextIcon size={18}/> Apply Now</Button>
+
+                    <RequestTour slug={slug} agentId={agent_id} />
+                </div>
+                <div className='md:col-span-8'>
                     <div className='py-8 border-t border-b border-grey-100/50 mt-6'>
                         <h4 className='font-bold text-xl mb-2'>Rental Properties</h4>
-                        <div className='w-1/2'>
+                        <div className='sm:w-1/2'>
                             <table className='w-full'>
                                 <tbody>
                                     <tr>
                                         <td className='py-1.5 font-medium'>Listed on Mavris</td>
-                                        <td className='py-1.5 font-semibold text-orange text-end px-8'>{new Date(created_at).toLocaleDateString()}</td>
+                                        <td className='property-details'>{new Date(created_at).toLocaleDateString()}</td>
                                     </tr>
                                     <tr>
                                         <td className='py-1.5 font-medium'>Type</td>
-                                        <td className='py-1.5 font-semibold text-orange text-end px-8 capitalize'>{property_type.replace("_", " ")}</td>
+                                        <td className='property-details capitalize'>{property_type.replace("_", " ")}</td>
                                     </tr>
                                     <tr>
                                         <td className='py-1.5 font-medium'>City</td>
-                                        <td className='py-1.5 font-semibold text-orange text-end px-8'>{property_location}</td>
+                                        <td className='property-details'>{property_location}</td>
                                     </tr>
                                     <tr>
                                         <td className='py-1.5 font-medium'>Year Built</td>
-                                        <td className='py-1.5 font-semibold text-orange text-end px-8'>{year_built}</td>
+                                        <td className='property-details'>{year_built}</td>
                                     </tr>
                                     <tr>
                                         <td className='py-1.5 font-medium'>Deposit & Fee</td>
-                                        <td className='py-1.5 font-semibold text-orange text-end px-8'>₦{rent_price}</td>
+                                        <td className='property-details'>₦{rent_price}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -160,13 +169,6 @@ function PropertyPage({data, slug}:Props) {
                     <p className='font-medium py-4'>
                         You are agree to mavris' Terms of Use & Privacy Policy. By choosing to contact a property, you also agree theat Estatery Group, landlords, and property managers may call or text yoou about any inquiries you submit through our services, which may involve use of automated means and prerecorded/articial voices. You don't need to consent as a condition of renting any property, or buying any other goods or services. Message/data rates may apply.
                     </p>
-                </div>
-                <div className="md:col-span-4 border border-grey-100/50 rounded p-4">
-                    <span className='font-semibold'>Rent price</span>
-                    <h3 className='font-semibold mb-3   '><span className='text-orange font-bold text-2xl'>₦{rent_price}</span>/year</h3>
-                    <Button className='bg-orange text-white font-semibold w-full gap-1'><FileTextIcon size={18}/> Apply Now</Button>
-
-                    <RequestTour slug={slug} agentId={agent_id} />
                 </div>
             </div>
         </div>

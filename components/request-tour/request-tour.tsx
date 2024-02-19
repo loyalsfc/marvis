@@ -31,7 +31,7 @@ function RequestTour({slug, agentId}:{slug:string; agentId:string}) {
     return (
         <div className='mt-4 border-t border-t-grey-200 pt-5'>
             <h4 className='font-bold text-xl '>Request a home tour</h4>
-            <div className='py-4 mb-2 grid min-[904px]:grid-cols-2 gap-2 min-[1047px]:gap-4'>
+            <div className='py-4 mb-2 grid grid-cols-2 sm:grid-cols-1 min-[904px]:grid-cols-2 gap-2 min-[1047px]:gap-4'>
                 <button
                     onClick={()=>setTourType(tour.INPERSON)} 
                     className={cn('tour-btn', tourType === tour.INPERSON && "active-tour")}

@@ -127,6 +127,9 @@
   .search-filteritem{
     @apply md:border-r border-grey-100 md:px-4 w-full lg:px-8 md:flex-1 overflow-hidden mb-4 md:mb-0
   }
+  .property-details{
+    @apply py-1.5 font-semibold text-orange text-end pl-4 sm:px-8
+  }
 }
 
 @layer utilities {
