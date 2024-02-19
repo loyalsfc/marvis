@@ -73,7 +73,7 @@ function PropertyBasicInfo({formDetails, updateForm, setFormDetails}:Props) {
                         <option value="detached_house">Detached House</option>
                         <option value="flat">Flat</option>
                         <option value="massionette">Massionette</option>
-                        <option value="single_family">Self Contain</option>
+                        <option value="self_contain">Self Contain</option>
                         <option value="single_family">Single Family</option>
                         <option value="terrace">Terrace</option>
                         <option value="villa">Villa</option>

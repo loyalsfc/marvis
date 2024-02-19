@@ -2,53 +2,35 @@
 
 import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react'
 import { SelectItem } from "@/components/ui/select"
-  import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
 import { Button } from '@/components/ui/button'
 import PropertyCard from '../property-card/property-card'
 import { getFeaturedImage } from '@/utils/utils'
 import FilterDropdown from './filter-dropdown'
 import { PropertyFilter } from '@/@types'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import {useRouter, useSearchParams} from 'next/navigation'
+import PropertyPagination from './pagination'
 
 function PropertyList({data}:{data: any[] | null}) {
-    const searchParams = useSearchParams();
     const router = useRouter();
-    const pathname = usePathname();
+    const searchParams = useSearchParams()
     const [filters, setFilters] = useState<PropertyFilter>({
-        location: "All",
-        type: "",
-        beds: "",
-        priceRange: ""
+        location: searchParams.get("location") ?? "All",
+        type: searchParams.get("type") ?? "",
+        beds: searchParams.get("beds") ?? "",
+        priceRange: searchParams.get("range") ?? ""
     })
-
-    const createQueryString = useCallback(
-        (name: string, value: string) => {
-            const params = new URLSearchParams(searchParams.toString())
-            params.set(name, value)
-     
-            return params.toString()
-    },[searchParams])
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         const {location, type, beds, priceRange} = filters;
-        // searchParams.delete()
         router.push(`
-            /properties?${location !== "" ? 'location='+location.toLowerCase() +"&":""}${type !== "" ? 'type='+type+"$":""}${beds !== "" ? 'beds='+beds+"&":""}${priceRange !== "" ? 'range='+priceRange:""}`
+            /properties?${location !== "" ? 'location='+location.toLowerCase() +"&":""}${type !== "" ? 'type='+type+"&":""}${beds !== "" ? 'beds='+beds+"&":""}${priceRange !== "" ? 'range='+priceRange:""}`
         )
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFilters(prevState => {
-            return {...filters, location: e.target.value}
+            return {...prevState, location: e.target.value}
         })
     }
 
@@ -72,11 +54,16 @@ function PropertyList({data}:{data: any[] | null}) {
                         filter={filters}
                         changeHandler={setFilters}
                     >
-                        <SelectItem value="duplex">Duplex</SelectItem>
+                        <SelectItem value="office">Office</SelectItem>
+                        <SelectItem value="shop">Shop</SelectItem>
+                        <SelectItem value="apartment">Apartment</SelectItem>
+                        <SelectItem value="detached_house">Detached House</SelectItem>
                         <SelectItem value="flat">Flat</SelectItem>
-                        <SelectItem value="Mansionette">Mansionette</SelectItem>
-                        <SelectItem value="terrrace">Terrace</SelectItem>
-                        <SelectItem value="single_room">Single Room</SelectItem>
+                        <SelectItem value="massionette">Massionette</SelectItem>
+                        <SelectItem value="self_contain">Self Contain</SelectItem>
+                        <SelectItem value="single_family">Single Family</SelectItem>
+                        <SelectItem value="terrace">Terrace</SelectItem>
+                        <SelectItem value="villa">Villa</SelectItem>
                     </FilterDropdown>
                     <FilterDropdown 
                         id="beds"
@@ -129,30 +116,10 @@ function PropertyList({data}:{data: any[] | null}) {
                     />
                 })}
             </ul>
-            <Pagination>
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious href="#" />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">1</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#" isActive>
-                            2
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">3</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationNext href="#" />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+            {data?.length === 0 && <div>
+                <p className='text-center py-10 text-primary font-bold text-2xl'>No Property Found</p>
+            </div>}
+           <PropertyPagination totalProperties={532} />
         </div>
     )
 }
