@@ -7,7 +7,7 @@ import Navs from './navs'
 import { usePathname } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks'
 import { login } from '@/lib/features/user/user'
-import { MenuSquare } from 'lucide-react'
+import { BadgeHelp, Bell, Filter, HomeIcon, LayoutDashboard, LogOut, Mail, MenuSquare, PlusSquare, SettingsIcon } from 'lucide-react'
 import { cn } from '@/utils/utils'
 import { close, open } from '@/lib/features/mobilemenu/mobilemenu'
 
@@ -31,7 +31,7 @@ function Aside({data}:{data: any}) {
 
     return (
         <aside 
-            className={cn('bg-dark-100 z-50 w-fit transition-all md:rounded-2xl group shadow-aside text-grey-100 pt-8 pb-4 md:px-4 h-full flex flex-col', menu && "absolute top-0 left-0 px-4")}
+            className={cn('bg-dark-100 z-50 w-fit transition-all md:rounded-2xl group shadow-aside text-grey-100 py-4 md:px-4 h-full flex flex-col', menu && "absolute top-0 left-0 px-4")}
             ref={sideMenu}
         >
             {menu && <div onClick={collapseMenu} className='h-full w-screen absolute -z-10 bg-black/20 top-0 left-0' />}
@@ -55,44 +55,50 @@ function Aside({data}:{data: any}) {
             </div>
             <ul className={cn('flex-1 flex flex-col gap-4 md:gap-0 sm:group-hover:gap-0', menu && "gap-0")}>
                 <Navs
-                    Icon={Dashboard}
+                    Icon={LayoutDashboard}
                     link=''
                     text='Dashboard'
                     path={pathName}
                 />
                 <Navs
-                    Icon={Home}
+                    Icon={HomeIcon}
                     link='/all-properties'
                     text='All Properties'
                     path={pathName}
                 />
                 <Navs
-                    Icon={RoundedPlus}
+                    Icon={PlusSquare}
                     link='/new-property'
                     text='Add Property'
                     path={pathName}
                 />
                 <Navs
-                    Icon={Funnel}
+                    Icon={Filter}
                     link='/export'
                     text='Export Properties'
                     path={pathName}
                 />
                 <Navs
-                    Icon={Notification}
+                    Icon={Bell}
                     link='/notifications'
                     text='Notification'
                     path={pathName}
                 />
                 <Navs
-                    Icon={Settings}
+                    Icon={Mail}
+                    link='/messages'
+                    text='Messages'
+                    path={pathName}
+                />
+                <Navs
+                    Icon={SettingsIcon}
                     link='/settings'
                     text='Settings'
                     path={pathName}
                 />
                 <Navs
                     className='mt-auto'
-                    Icon={Help}
+                    Icon={BadgeHelp}
                     link='/help-support'
                     text='Help & Support'
                     path={pathName}
@@ -100,7 +106,7 @@ function Aside({data}:{data: any}) {
                 <li>
                     <form action="/auth/signout" method="post">
                         <button className="side-menu-item w-full text-[#F10A0A]" type="submit">
-                            <Logout/> 
+                            <LogOut /> 
                             <span className={cn('hidden md:block sm:group-hover:block', menu && "block")}>Sign out</span>
                         </button>
                     </form>

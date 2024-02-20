@@ -2,7 +2,7 @@
 
 import { PropertyProps } from '@/@types'
 import { Button } from '@/components/ui/button'
-import { cn, downloadImage } from '@/utils/utils'
+import { cn, downloadImage, priceToString } from '@/utils/utils'
 import { Bath, BedDoubleIcon, CalendarDaysIcon, Check, CheckCircle2, FileDigitIcon, FileTextIcon, ImageIcon, InfoIcon, Phone, Share2 } from 'lucide-react'
 import Image from 'next/image'
 import React, { useState } from 'react'
@@ -41,7 +41,7 @@ function PropertyPage({data, slug}:Props) {
                 {property_image.map((item, index) => {
                     if(index > 2) return
                     return(
-                        <li className={cn("relative rounded group aspect-video overflow-hidden", property_image.length > 2 && "col-span-6 sm:col-span-4 first:col-span-12 sm:first:col-span-8 first:row-span-2")}>
+                        <li key={index} className={cn("relative rounded group aspect-video overflow-hidden", property_image.length > 2 && "col-span-6 sm:col-span-4 first:col-span-12 sm:first:col-span-8 first:row-span-2")}>
                             <Image
                                 key={index}
                                 src={downloadImage(item.url, "property_images")}
@@ -106,7 +106,7 @@ function PropertyPage({data, slug}:Props) {
                 </div>
                 <div className="md:col-span-4 border border-grey-100/50 rounded p-4">
                     <span className='font-semibold'>Rent price</span>
-                    <h3 className='font-semibold mb-3   '><span className='text-orange font-bold text-2xl'>₦{rent_price}</span>/year</h3>
+                    <h3 className='font-semibold mb-3   '><span className='text-orange font-bold text-2xl'>₦{priceToString(rent_price)}</span>/year</h3>
                     <Button className='bg-orange text-white font-semibold w-full gap-1'><FileTextIcon size={18}/> Apply Now</Button>
 
                     <RequestTour slug={slug} agentId={agent_id} />
@@ -135,7 +135,7 @@ function PropertyPage({data, slug}:Props) {
                                     </tr>
                                     <tr>
                                         <td className='py-1.5 font-medium'>Deposit & Fee</td>
-                                        <td className='property-details'>₦{rent_price}</td>
+                                        <td className='property-details'>₦{priceToString(rent_price)}</td>
                                     </tr>
                                 </tbody>
                             </table>

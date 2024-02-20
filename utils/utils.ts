@@ -84,3 +84,8 @@ export function getFeaturedImage(property_image: {url: string, isMarkedFeatured:
         .getPublicUrl (storagePath ?? "")
     return data.publicUrl
 }
+
+export function priceToString(initialPrice: string) {
+  const priceNumber = parseInt(initialPrice)
+  return priceNumber.toLocaleString()
+}
