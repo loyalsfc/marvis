@@ -7,7 +7,7 @@ import Navs from './navs'
 import { usePathname } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks'
 import { login } from '@/lib/features/user/user'
-import { BadgeHelp, Bell, Filter, HomeIcon, LayoutDashboard, LogOut, Mail, MenuSquare, PlusSquare, SettingsIcon } from 'lucide-react'
+import { BadgeHelp, Bell, Filter, HomeIcon, LayoutDashboard, LocateFixedIcon, LogOut, Mail, MenuSquare, PlusSquare, SettingsIcon } from 'lucide-react'
 import { cn } from '@/utils/utils'
 import { close, open } from '@/lib/features/mobilemenu/mobilemenu'
 
@@ -73,9 +73,9 @@ function Aside({data}:{data: any}) {
                     path={pathName}
                 />
                 <Navs
-                    Icon={Filter}
-                    link='/export'
-                    text='Export Properties'
+                    Icon={LocateFixedIcon}
+                    link='/booked-tours'
+                    text='Booked Tours'
                     path={pathName}
                 />
                 <Navs

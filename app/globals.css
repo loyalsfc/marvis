@@ -130,6 +130,18 @@
   .property-details{
     @apply py-1.5 font-semibold text-orange text-end pl-4 sm:px-8
   }
+  .tour-contacts{
+    @apply flex items-center gap-2 hover:underline hover:text-orange overflow-hidden whitespace-nowrap text-ellipsis
+  }
+  .tour-header{
+    @apply py-3 px-2 md:px-3 text-left whitespace-nowrap
+  }
+  .tour-cells{
+    @apply py-2 px-2 md:px-3
+  }
+  .tour-count{
+    @apply grid place-content-center ml-2 aspect-square h-full rounded-full text-white bg-orange
+  }
 }
 
 @layer utilities {

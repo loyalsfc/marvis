@@ -3,7 +3,6 @@ import { cookies } from 'next/headers'
 import React from 'react'
 import moment from "moment"
 import Link from 'next/link'
-import { MailIcon } from 'lucide-react'
 import emptyMessage from '../../../public/empty-messages.png'
 import Image from 'next/image'
 
