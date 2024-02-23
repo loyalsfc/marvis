@@ -3,7 +3,7 @@
 import { PropertyProps } from '@/@types'
 import { Button } from '@/components/ui/button'
 import { cn, downloadImage, priceToString } from '@/utils/utils'
-import { Bath, BedDoubleIcon, CalendarDaysIcon, Check, CheckCircle2, FileDigitIcon, FileTextIcon, ImageIcon, InfoIcon, Phone, Share2 } from 'lucide-react'
+import { Bath, BedDoubleIcon, CalendarDaysIcon, Check, CheckCircle2, FileDigitIcon, FileTextIcon, ImageIcon, Phone, Share2 } from 'lucide-react'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
@@ -107,8 +107,13 @@ function PropertyPage({data, slug}:Props) {
                 <div className="md:col-span-4 border border-grey-100/50 rounded p-4">
                     <span className='font-semibold'>Rent price</span>
                     <h3 className='font-semibold mb-3   '><span className='text-orange font-bold text-2xl'>₦{priceToString(rent_price)}</span>/year</h3>
-                    <Button className='bg-orange text-white font-semibold w-full gap-1'><FileTextIcon size={18}/> Apply Now</Button>
-
+                    <Link href={pathName + "/apply"}>
+                        <Button 
+                            className='bg-orange text-white font-semibold w-full gap-1'
+                        >
+                            <FileTextIcon size={18}/> Apply Now
+                        </Button>
+                    </Link>
                     <RequestTour slug={slug} agentId={agent_id} />
                 </div>
                 <div className='md:col-span-8'>

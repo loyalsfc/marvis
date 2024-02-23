@@ -4,7 +4,6 @@ import React, { ChangeEventHandler, useState } from 'react'
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import ZodTemplate, { ZodTemplateTextarea } from './zod-template/zod-template'
 import ImagePreview from '../property-form/image-preview/image-preview'
@@ -15,49 +14,19 @@ import { downloadImage, supabase } from '@/utils/utils'
 import { FaTrash } from 'react-icons/fa'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { useRouter } from 'next/navigation'
+import { formSchema, tenantFormTypes } from './formSchema'
 
-const formSchema = z.object({
-    full_name: z.string().min(2,{
-        message: "Name can not be less than 2 characters"
-    }).max(50),
-    phone_number: z.string().min(10,{
-        message: "Phone Number can not be less than 10 characters"
-    }).max(14,{
-        message: "Phone Number can not be more than 14 characters"
-    }),
-    email_address: z.string().email().min(5),
-    contact_address: z.string()
-        .min(10, {
-            message: "Address must be at least 10 characters.",
-        })
-        .max(160, {
-            message: "Address must not be longer than 30 characters.",
-        }),
-    guarantor_name: z.string().min(2,{
-        message: "Name can not be less than 2 characters"
-    }).max(50),
-    garantor_phone_number: z.string().min(10,{
-        message: "Phone Number can not be less than 10 characters"
-    }).max(14,{
-        message: "Phone Number can not be more than 14 characters"
-    }),
-    guarantor_address: z.string()
-    .min(10, {
-        message: "Address must be at least 10 characters.",
-    })
-    .max(160, {
-        message: "Address must not be longer than 30 characters.",
-    }),
-    
-})
+interface Props {
+    saveTenant:(values: tenantFormTypes, userIdentification: string, avatar: string) => void
+}
 
-function TenantForm() {
+function TenantForm({saveTenant}: Props) {
     const [avatar, setAvatar] = useState<string>("public/avatar.png");
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const [userIdentification, setUserIdentification] = useState<string>("cards/default_card.svg");
     const userId = useAppSelector(state => state.user.user?.id);
     const router = useRouter()
-    const form = useForm<z.infer<typeof formSchema>>({
+    const form = useForm<tenantFormTypes>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             full_name: "",
@@ -105,20 +74,11 @@ function TenantForm() {
         }
     }
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: tenantFormTypes) {
         // Do something with the form values.
         setIsSubmitting(true);
         // ✅ This will be type-safe and validated.
-        const {data, error} = await supabase.from("tenants")
-            .insert({
-                ...values, 
-                id_card: userIdentification,
-                avatar,
-                agent_id: userId
-            })
-        if(!error){
-            router.push("/all-properties")
-        }
+        saveTenant(values, userIdentification, avatar);
     }
       
   return (
@@ -173,7 +133,7 @@ function TenantForm() {
                     form={form}
                     name="guarantor_address"
                     label="Guarantor Contact Address"
-                    placeholder="Enter your contact address"
+                    placeholder="Enter Guarantor contact address"
                 />
             </div>
             <Divider note="Means of Identification"/>

@@ -268,7 +268,7 @@ function Modal({item, tenant_list, allUnits, property_id}:Props) {
                             </PopoverContent>
                           </Popover>
                           <FormDescription>
-                            To add a new tenant detail <Link href="/new-tenants" target='_blank' className='text-orange'>Click here</Link>
+                            To add a new tenant detail <Link href="/dashboard/new-tenants" target='_blank' className='text-orange'>Click here</Link>
                           </FormDescription>
                           <FormMessage />
                         </FormItem>
