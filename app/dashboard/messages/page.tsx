@@ -5,6 +5,7 @@ import moment from "moment"
 import Link from 'next/link'
 import emptyMessage from '../../../public/empty-messages.png'
 import Image from 'next/image'
+import EmptyPages from '@/components/empty-pages/empty-pages'
 
 async function Page() {
     const supabase = createServerComponentClient({cookies})
@@ -18,7 +19,7 @@ async function Page() {
     return (
         <div className='page-wrapper h-full flex flex-col'>
             <h3 className='text-2xl font-bold text-orange'>Messages</h3>
-            <div className='flex-1 overflow-y-scroll pr-2'>
+            {data?.length ? <div className='flex-1 overflow-y-scroll pr-2'>
                 <ul className='space-y-4 py-6'>
                     {data?.map(item => {
                         return(
@@ -43,18 +44,7 @@ async function Page() {
                         )
                     })}
                 </ul>
-                {data?.length === 0 && (
-                    <div>
-                        <div className='max-w-md mx-auto'>
-                            <Image
-                                src={emptyMessage}
-                                alt='Empty Image'
-                            />
-                        </div>
-                        <p className='text-xl font-semibold text-center'>No Message Found</p>
-                    </div>
-                )}
-            </div>
+            </div> : <EmptyPages emptyImage={emptyMessage} note='No Message Found' />}
         </div>
     )
 }

@@ -22,7 +22,7 @@ export default async function RootLayout({
 
   const supabase = createServerComponentClient({cookies})
   const {data, error} = await supabase.auth.getUser();
-  console.log(data)
+  
   return (
         <ReduxProvider>
           <div className='md:p-4 h-screen flex md:gap-4'>

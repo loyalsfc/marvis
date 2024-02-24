@@ -2,12 +2,11 @@
 
 import Image from 'next/image'
 import React, { useEffect, useRef } from 'react'
-import { Dashboard, Funnel, Help, Home, Logout, Notification, RoundedPlus, Settings } from '../icons/icons'
 import Navs from './navs'
 import { usePathname } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks'
 import { login } from '@/lib/features/user/user'
-import { BadgeHelp, Bell, Filter, HomeIcon, LayoutDashboard, LocateFixedIcon, LogOut, Mail, MenuSquare, PlusSquare, SettingsIcon } from 'lucide-react'
+import { BadgeHelp, Bell, FilePlus, HomeIcon, LayoutDashboard, LocateFixedIcon, LogOut, Mail, MenuSquare, PlusSquare, SettingsIcon } from 'lucide-react'
 import { cn } from '@/utils/utils'
 import { close, open } from '@/lib/features/mobilemenu/mobilemenu'
 
@@ -42,7 +41,7 @@ function Aside({data}:{data: any}) {
                 <MenuSquare/>
             </button>}
             <div className={cn('hidden md:flex sm:group-hover:flex flex-col items-center pb-5', menu && 'flex')}>
-                <div className='relative h-24 w-24 rounded-full overflow-hidden border mb-3'>
+                <div className='relative h-20 w-20 rounded-full overflow-hidden border mb-3'>
                     <Image
                         src="/profilePic.jpg"
                         fill
@@ -50,7 +49,7 @@ function Aside({data}:{data: any}) {
                         className='object-cover object-top'
                     />
                 </div>
-                <h4 className='text-2xl font-bold leading-none text-white pb-2'>{data?.user?.user_metadata?.full_name}</h4>
+                <h4 className='text-xl font-bold leading-none text-white pb-2'>{data?.user?.user_metadata?.full_name}</h4>
                 <p className='text-sm leading-none'>Real Estate Agent</p>
             </div>
             <ul className={cn('flex-1 flex flex-col gap-4 md:gap-0 sm:group-hover:gap-0', menu && "gap-0")}>
@@ -70,6 +69,12 @@ function Aside({data}:{data: any}) {
                     Icon={PlusSquare}
                     link='/new-property'
                     text='Add Property'
+                    path={pathName}
+                />
+                <Navs
+                    Icon={FilePlus}
+                    link='/property-applications'
+                    text='Applications'
                     path={pathName}
                 />
                 <Navs
