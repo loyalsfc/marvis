@@ -7,9 +7,19 @@ import Image from 'next/image'
 import { downloadImage } from '@/utils/utils'
 import Link from 'next/link'
 
-interface Property_image {
-    url: string,
-    isMarkedFeatured: boolean
+interface Data {
+    id: any;
+    tenant_id: {
+        full_name: string;
+    };
+    property_slug: {
+        property_image: {
+            url: string,
+            isMarkedFeatured: boolean
+        }[];
+        property_title: string;
+        property_location: string;
+    };
 }
 
 async function Page() {
@@ -29,8 +39,7 @@ async function Page() {
             )
         `)
         .eq("agent_id", user.user?.id)
-
-    console.log(typeof data)
+        .returns<Data[] | null>()
 
     return (
         <div className='h-full w-full flex flex-col page-wrapper overflow-y-scroll'>
@@ -38,7 +47,7 @@ async function Page() {
             {data?.length ? <div className='flex-1 overflow-y-scroll pr-2'>
                 <ul className='space-y-4'>
                     {data.map(item => {
-                        const image = item.property_slug.property_image.find((image: Property_image) => image.isMarkedFeatured)?.url ?? item.property_slug.property_image[0].url
+                        const image = item.property_slug.property_image.find((image) => image.isMarkedFeatured)?.url ?? item.property_slug.property_image[0].url
                         return(
                             <li key={item.id} className='flex gap-4 p-2 border border-orange rounded-lg'>
                                 <div className='h-20 w-20 relative rounded-md overflow-hidden'>
@@ -54,7 +63,7 @@ async function Page() {
                                     <p className='font-medium mt-auto leading-none'>Tenant Name: <span className='text-orange'>{item.tenant_id.full_name}</span></p>
                                 </div>
                                 <Link 
-                                    href={`/property-applications/${item.id}`} 
+                                    href={`/dashboard/property-applications/${item.id}`} 
                                     className='ml-auto btn btn-primary bg-orange self-center py-1.5 px-4 font-medium'
                                 >
                                     View Details

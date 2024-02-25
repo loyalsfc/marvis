@@ -1,13 +1,14 @@
 'use client'
 
 import Link from "next/link";
-import { ExportIcon, RoundedPlus, Search } from "../icons/icons";
+import {  Search } from "../icons/icons";
 import FilterBtn from "../filter-btn/filter-btn";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useAppSelector } from "@/lib/hooks/hooks";
 import { cn } from "@/utils/utils";
 import {DeleteProperty} from "../deleteProperty/delete-property";
+import { Filter, PlusSquare } from "lucide-react";
 
 export function AllProperties({property}:{property: any[] | null}){
     const [filter, setFilter] = useState<string>("All properties");
@@ -19,11 +20,11 @@ export function AllProperties({property}:{property: any[] | null}){
                 <h2 className="text-xl sm:text-2xl min-[1065px]:text-3xl font-bold text-[#1c1c1c]">Properties Management</h2>
                 <div className="flex gap-3 sm:gap-[22px] justify-end ml-auto">
                     <Link href={"/dashboard/export-properties"} className="gap-2.5 btn btn-secondary border border-orange">
-                        <ExportIcon />
+                        <Filter />
                         Export
                     </Link>
                     <Link href={"/dashboard/new-property"} className='btn btn-primary whitespace-nowrap'>
-                        <RoundedPlus color='#FFF' />
+                        <PlusSquare color='#FFF' />
                         Add Property
                     </Link>
                 </div>

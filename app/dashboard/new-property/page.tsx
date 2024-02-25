@@ -1,12 +1,14 @@
-import FormControl from '@/components/authentication/form-control/form-control'
+import { OwnerProp } from '@/@types'
 import PropertyForm from '@/components/property-form/property-form'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-// import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import React from 'react'
 
 async function Page() {
     const supabase = createClientComponentClient()
-    const {data, error} = await supabase.from("property_owner").select('first_name, last_name, id')
+    const {data, error} = await supabase
+        .from("property_owner")
+        .select('first_name, last_name, id')
+        .returns<OwnerProp[] | null>()
 
     return (
         <div className='page-wrapper h-full flex flex-col'>
