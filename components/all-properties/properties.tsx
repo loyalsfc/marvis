@@ -2,7 +2,6 @@
 
 import { cn, daysToExpire } from '@/utils/utils';
 import React from 'react'
-import { FaEllipsisV } from 'react-icons/fa';
 import Modal from '../modals/modal';
 import { PropertyUnitProps } from '@/@types';
 import TenantModal from '../modals/tenantModal';
@@ -58,19 +57,9 @@ function Properties({
         property_address,
         rent_price,
         property_type,
-        property_location,
-        bedroom,
-        bath,
-        year_built,
         units,
-        video_url,
-        additional_details,
-        features,
-        property_label,
-        label_color,
         vacant_units,
         property_owner,
-        property_image ,
         property_units
     } = data[0];
 
