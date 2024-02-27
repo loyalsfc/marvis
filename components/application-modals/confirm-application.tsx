@@ -136,13 +136,13 @@ function ConfirmApplication({units, tenantId, propertyId, slug}: Props) {
                                     <FormControl>
                                         <RadioGroup
                                             onValueChange={field.onChange}
-                                            defaultValue={field.value.toString()}
+                                            // defaultValue={field.value.toString()}
                                             className="grid grid-cols-3 gap-3"
                                         >
                                             {units.map(item => {
                                                 return(
                                                     <FormItem className="flex items-center space-x-3 space-y-0">
-                                                        <FormControl>
+                                                        <FormControl className={!item.isAvailable ? "text-muted-foreground" : ""}>
                                                             <RadioGroupItem disabled={!item.isAvailable} value={item.unit} />
                                                         </FormControl>
                                                         <FormLabel className="font-normal">

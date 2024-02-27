@@ -31,7 +31,8 @@ async function Page() {
 
     return (
         <div>
-            <div className="bg-[#F7f7f7] py-14">
+            <div className="bg-[#F7f7f7] py-14 relative">
+                <div className="bg-[url('/maps.png')] h-full w-3/6 hidden md:block opacity-40 absolute top-0 right-0 bg-cover bg-no-repeat" />
                 <div className="mx-auto max-w-7xl relative">
                     <div className="mx-auto container px-4 md:px-8">
                         <div className='flex flex-col md:flex-row'>

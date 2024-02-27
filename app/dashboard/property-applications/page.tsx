@@ -6,6 +6,7 @@ import emptyImage from '../../../public/empty-request.png'
 import Image from 'next/image'
 import { downloadImage } from '@/utils/utils'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 interface Data {
     id: any;
@@ -28,7 +29,7 @@ async function Page() {
     const {data, error} = await supabase
         .from("property_applications")
         .select(`
-            id, 
+            *, 
             tenant_id(
                 full_name
             ),
@@ -39,35 +40,45 @@ async function Page() {
             )
         `)
         .eq("agent_id", user.user?.id)
+        .neq("is_approved", true)
         .returns<Data[] | null>()
 
     return (
         <div className='h-full w-full flex flex-col page-wrapper overflow-y-scroll'>
             <h3 className='text-2xl font-bold text-orange mb-8'>Tenancy Applications</h3>
-            {data?.length ? <div className='flex-1 overflow-y-scroll pr-2'>
+            {data?.length ? <div className='flex-1 overflow-y-scroll sm:pr-2'>
                 <ul className='space-y-4'>
                     {data.map(item => {
                         const image = item.property_slug.property_image.find((image) => image.isMarkedFeatured)?.url ?? item.property_slug.property_image[0].url
                         return(
-                            <li key={item.id} className='flex gap-4 p-2 border border-orange rounded-lg'>
-                                <div className='h-20 w-20 relative rounded-md overflow-hidden'>
-                                    <Image
-                                        src={downloadImage(image, "property_images")}
-                                        fill
-                                        alt='Property Image'
-                                    />
+                            <li key={item.id} className='flex flex-col sm:flex-row gap-4 p-2 border border-orange rounded-lg'>
+                                <div className='flex-1 flex gap-4'>
+                                    <div className='h-24 w-24  relative rounded-md overflow-hidden'>
+                                        <Image
+                                            src={downloadImage(image, "property_images")}
+                                            fill
+                                            alt='Property Image'
+                                        />
+                                    </div>
+                                    <div className='flex flex-col flex-1'>
+                                        <h4 className='sm:text-xl font-semibold text-orange leading-none'>{item.property_slug.property_title}</h4>
+                                        <span className='text-sm sm:text-base font-medium capitalize'>{item.property_slug.property_location}</span>
+                                        <p className='font-medium mt-auto leading-none text-sm sm:text-base'>Tenant Name: <span className='text-orange'>{item.tenant_id.full_name}</span></p>
+                                    </div>
                                 </div>
-                                <div className='flex flex-col'>
-                                    <h4 className='text-xl font-semibold text-orange leading-none'>{item.property_slug.property_title}</h4>
-                                    <span className='font-medium capitalize'>{item.property_slug.property_location}</span>
-                                    <p className='font-medium mt-auto leading-none'>Tenant Name: <span className='text-orange'>{item.tenant_id.full_name}</span></p>
+                                <div className='flex flex-col justify-between items-stretch gap-2'>
+                                    <Link 
+                                        href={`/dashboard/property-applications/${item.id}`} 
+                                        className='w-full'
+                                    >
+                                        <Button className='bg-orange w-full py-1.5'>
+                                            View Details
+                                        </Button>   
+                                    </Link>
+                                    <Button variant={'ghost'} className='border-orange py-1.5 text-orange'>
+                                        Delete Application 
+                                    </Button>
                                 </div>
-                                <Link 
-                                    href={`/dashboard/property-applications/${item.id}`} 
-                                    className='ml-auto btn btn-primary bg-orange self-center py-1.5 px-4 font-medium'
-                                >
-                                    View Details
-                                </Link>
                             </li>
                         )
                     })}

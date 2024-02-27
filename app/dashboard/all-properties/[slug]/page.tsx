@@ -46,6 +46,7 @@ async function Page({ params }: { params: { slug: string } }) {
             full_name,
             id
         `)
+        .neq("is_approved", false)
     
     return (
         <div className='page-wrapper h-full overflow-hidden'>

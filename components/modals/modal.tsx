@@ -106,6 +106,7 @@ function Modal({item, tenant_list, allUnits, property_id}:Props) {
             modalDescription="Make changes to the suites. Click submit when you're done."
             Icon={FaEllipsisV}
             btnRef={closeBtn}
+            btnClass='hover:bg-orange/50 w-6 p-1 rounded hover:text-white transition-all scale-105 flex items-center justify-center'
           >
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-4'>
@@ -126,8 +127,8 @@ function Modal({item, tenant_list, allUnits, property_id}:Props) {
                                         <SelectContent>
                                             <SelectGroup>
                                                 <SelectLabel>Rent Status</SelectLabel>
-                                                <SelectItem value="available">Available</SelectItem>
-                                                <SelectItem value="occupied">Occupied</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="available">Available</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="occupied">Occupied</SelectItem>
                                             </SelectGroup>
                                         </SelectContent>
                                     </Select>
@@ -194,16 +195,16 @@ function Modal({item, tenant_list, allUnits, property_id}:Props) {
                                         <SelectContent>
                                             <SelectGroup>
                                                 <SelectLabel>Rent Duration</SelectLabel>
-                                                <SelectItem value="1">1</SelectItem>
-                                                <SelectItem value="2">2</SelectItem>
-                                                <SelectItem value="3">3</SelectItem>
-                                                <SelectItem value="4">4</SelectItem>
-                                                <SelectItem value="5">5</SelectItem>
-                                                <SelectItem value="6">6</SelectItem>
-                                                <SelectItem value="7">7</SelectItem>
-                                                <SelectItem value="8">8</SelectItem>
-                                                <SelectItem value="9">9</SelectItem>
-                                                <SelectItem value="10">10</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="1">1</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="2">2</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="3">3</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="4">4</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="5">5</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="6">6</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="7">7</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="8">8</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="9">9</SelectItem>
+                                                <SelectItem className="hover:bg-secondary-foreground/20" value="10">10</SelectItem>
                                             </SelectGroup>
                                         </SelectContent>
                                     </Select>

@@ -28,7 +28,7 @@ function ReviewApplication({userIdentification}:{userIdentification: string}) {
 
     return (
         <div>
-            <div className="max-w-[450px] mx-auto my-8 relative">
+            <div className="max-w-[450px] mx-auto mb-8 sm:my-8 relative">
                 <AspectRatio ratio={3.375 / 2.125} onClick={showId} className='hover:scale-105 cursor-pointer transition-all'>
                     <Image src={downloadImage(userIdentification, "identity_cards")} fill alt="Image" className="rounded-md object-contain" />
                 </AspectRatio>
@@ -41,12 +41,12 @@ function ReviewApplication({userIdentification}:{userIdentification: string}) {
                     
                 />
                 <button 
-                    className='absolute top-8 right-8 h-10 w-10 grid text-white place-content-center hover:bg-orange hover:text-white rounded-full z-50' 
+                    className='absolute top-4 sm:top-8 right-4 sm:right-8 h-10 w-10 grid text-white place-content-center hover:bg-orange hover:text-white rounded-full z-50' 
                     onClick={hideId}
                 >
                     <X/>
                 </button>
-                <div ref={modalContentRef} className="w-2/3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-0 transition-all">
+                <div ref={modalContentRef} className=" w-11/12 sm:w-2/3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-0 transition-all">
                     <AspectRatio ratio={3.375 / 2.125}>
                         <Image src={downloadImage(userIdentification, "identity_cards")} fill alt="Image" className="rounded-md object-contain" />
                     </AspectRatio>

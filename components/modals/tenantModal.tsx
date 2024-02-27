@@ -20,12 +20,11 @@ function TenantModal({tenantId, name}:Props) {
         await supabase.from("tenants").select().eq("id", tenantId)
     )
 
-    console.log(data);
-
     return (
         <ModalWrapper
             modalTitle='Tenant Details'
             btnText={name}
+            btnClass='hover:underline hover:text-orange'
         >
             {isLoading ? <div className='py-10'>
                 <div className="h-10 w-10 border-2 border-orange rounded-full mx-auto border-t-gray-600 animate-spin"/>
