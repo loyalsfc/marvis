@@ -1,6 +1,6 @@
 'use client'
 
-import { cn, daysToExpire } from '@/utils/utils';
+import { cn, daysToExpire, priceToString } from '@/utils/utils';
 import React from 'react'
 import Modal from '../modals/modal';
 import { PropertyUnitProps } from '@/@types';
@@ -114,7 +114,7 @@ function Properties({
                     </tr>
                     <tr>
                         <td className='py-0.5 pr-4'>Price:</td>
-                        <td>₦{rent_price}</td>
+                        <td>₦{priceToString(rent_price.toString())}</td>
                     </tr>
                 </tbody>
             </table>
