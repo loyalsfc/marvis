@@ -17,19 +17,11 @@ function BookedTours({
 }:{
   data: any[] | null
 }) {
-  const [filter, setFilter] = useState<string>(FILTER.ALL);
+  const [filter, setFilter] = useState<string>(FILTER.UPCOMING);
   
   return (
     <div>
       <div className='flex flex-nowrap overflow-scroll no-scrollbar gap-4 pb-4'>
-        <Button 
-          onClick={()=>setFilter(FILTER.ALL)}
-          variant={'outline'}
-          className={cn(filter === FILTER.ALL ? 'bg-orange text-white group': "border-orange text-orange")}
-        >
-          All Tours
-          <span className='tour-count'>{data?.length}</span>
-        </Button>
         <Button 
           onClick={()=>setFilter(FILTER.UPCOMING)}
           variant={'outline'}
@@ -37,6 +29,14 @@ function BookedTours({
           >
           Upcoming Tours
           <span className='tour-count'>{data?.filter(item => new Date(item.tour_date) > new Date()).length}</span>
+        </Button>
+        <Button 
+          onClick={()=>setFilter(FILTER.ALL)}
+          variant={'outline'}
+          className={cn(filter === FILTER.ALL ? 'bg-orange text-white group': "border-orange text-orange")}
+        >
+          All Tours
+          <span className='tour-count'>{data?.length}</span>
         </Button>
         <Button 
           onClick={()=>setFilter(FILTER.PAST)}

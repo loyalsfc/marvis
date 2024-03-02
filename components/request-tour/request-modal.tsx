@@ -2,8 +2,6 @@ import React, { useRef, useState } from 'react'
 import ModalWrapper from '../modals/wrapper'
 import { LocateFixedIcon } from 'lucide-react'
 import { toast } from 'react-toastify';
-
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -19,7 +17,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { supabase } from '@/utils/utils'
-import { usePathname } from 'next/navigation';
  
 const formSchema = z.object({
   fullName: z.string().min(3, {
@@ -42,10 +39,11 @@ interface Props {
   date: Date, 
   tourType: tour, 
   slug:string,
-  agentId: string
+  agentId: string,
+  propertyTitle: string
 }
 
-function RequestModal({date, tourType, slug, agentId}: Props) {
+function RequestModal({date, tourType, slug, agentId, propertyTitle}: Props) {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const [loader, setLoader] = useState<boolean>(false)
 
@@ -61,17 +59,23 @@ function RequestModal({date, tourType, slug, agentId}: Props) {
   const onSubmit = async(values: z.infer<typeof formSchema>) => {
     const {fullName, emailAddress, phoneNumber} = values;
     setLoader(true);
-    await supabase.from("booked_tours").insert({
-      tour_type: tourType,
-      property_slug: slug,
-      tour_date: date.toISOString(),
-      client_name: fullName,
-      client_phone_number: phoneNumber,
-      client_email: emailAddress,
-      agent_id: agentId
-    })
-    toast.success("Tour Booked Successfully")
+    const {error} = await supabase.from("booked_tours")
+      .insert({
+        tour_type: tourType,
+        property_slug: slug,
+        property_title: propertyTitle,
+        tour_date: date.toISOString(),
+        client_name: fullName,
+        client_phone_number: phoneNumber,
+        client_email: emailAddress,
+        agent_id: agentId
+      })
     setLoader(false);
+    if(error){
+      toast.error("An Error Occured");
+      return;
+    }
+    toast.success("Tour Booked Successfully")
     closeBtnRef.current?.click();
   }
     return (

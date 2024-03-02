@@ -1,13 +1,14 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import React from 'react'
-import moment from "moment"
-import Link from 'next/link'
-import Image from 'next/image'
 import emptyTour from '../../../public/empty-tour.png'
 import BookedTours from '@/components/booked-tours/booked-tours'
 import EmptyPages from '@/components/empty-pages/empty-pages'
+import { Metadata } from 'next'
 
+export const metadata: Metadata = {
+    title: "Booked Tours"
+}
 
 async function Page() {
     const supabase = createServerComponentClient({cookies})

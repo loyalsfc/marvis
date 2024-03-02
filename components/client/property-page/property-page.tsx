@@ -114,7 +114,11 @@ function PropertyPage({data, slug}:Props) {
                             <FileTextIcon size={18}/> Apply Now
                         </Button>
                     </Link>
-                    <RequestTour slug={slug} agentId={agent_id} />
+                    <RequestTour 
+                        slug={slug} 
+                        agentId={agent_id} 
+                        propertyTitle={property_title}
+                    />
                 </div>
                 <div className='md:col-span-8'>
                     <div className='py-8 border-t border-b border-grey-100/50 mt-6'>

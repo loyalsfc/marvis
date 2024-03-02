@@ -27,8 +27,6 @@ async function Page({params}:{params: {id:string}}) {
         return <p className='pt-20 text-center font-bold text-orange'>An Error Occured</p>
     }
 
-    console.log(data)
-
     const {id: propertyId, slug, property_title, property_location, property_units} = data.property_slug
     const {id, created_at, full_name, id_card, avatar, phone_number, email_address, contact_address, guarantor_name, garantor_phone_number, guarantor_address} = data.tenant_id
 
@@ -113,7 +111,8 @@ async function Page({params}:{params: {id:string}}) {
                                 units={property_units} 
                                 tenantId={id} 
                                 propertyId={propertyId} 
-                                slug={slug} 
+                                slug={slug}
+                                applicationId={data.id}
                             />}
             </div>
         </div>

@@ -41,8 +41,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 interface Props {
     units: PropertyUnitProps[], 
     tenantId: string, 
-    propertyId:string
-    slug: string
+    propertyId:string,
+    slug: string,
+    applicationId: string
 }
 
 const FormSchema = z.object({
@@ -57,7 +58,7 @@ const FormSchema = z.object({
     })
 })
 
-function ConfirmApplication({units, tenantId, propertyId, slug}: Props) {
+function ConfirmApplication({units, tenantId, propertyId, slug, applicationId}: Props) {
     const [submitting, setSubmitting] = useState(false);
     const router = useRouter()
 
@@ -82,10 +83,10 @@ function ConfirmApplication({units, tenantId, propertyId, slug}: Props) {
         const { error: appError} = await supabase
             .from("property_applications")
             .update({"is_approved": true})
-            .eq("id", tenantId)
+            .eq("id", applicationId)
 
         if(appError){
-            toast.error("An error occured")
+            toast.error("An error occured");
             return;
         }
 

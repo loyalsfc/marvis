@@ -18,7 +18,7 @@ enum tour  {
     INPERSON = "in person"
 }
 
-function RequestTour({slug, agentId}:{slug:string; agentId:string}) {
+function RequestTour({slug, agentId, propertyTitle}:{slug:string; agentId:string, propertyTitle: string}) {
     const [date, setDate] = React.useState<Date>(new Date());
     const [tourType, setTourType] = useState<tour>(tour.VIRTUAL)
 
@@ -71,7 +71,13 @@ function RequestTour({slug, agentId}:{slug:string; agentId:string}) {
                 </Popover>
             </div>
 
-            <RequestModal date={date} tourType={tourType} slug={slug} agentId={agentId} />
+            <RequestModal 
+                date={date} 
+                tourType={tourType} 
+                slug={slug} 
+                agentId={agentId}
+                propertyTitle={propertyTitle} 
+            />
             
             <span className='text-sm font-medium'>It's free, with no obligation - cancel anytime</span>
         </div>

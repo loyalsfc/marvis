@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { downloadImage } from '@/utils/utils'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import DeleteApplication from '@/components/application-modals/delete-application'
 
 interface Data {
     id: any;
@@ -75,9 +76,7 @@ async function Page() {
                                             View Details
                                         </Button>   
                                     </Link>
-                                    <Button variant={'ghost'} className='border-orange py-1.5 text-orange'>
-                                        Delete Application 
-                                    </Button>
+                                    <DeleteApplication applicationId={item.id} />
                                 </div>
                             </li>
                         )
