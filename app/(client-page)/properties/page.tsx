@@ -34,6 +34,7 @@ async function Page({
         .eq(searchParams?.beds ? "bedroom" : "", searchParams?.beds)
         .gte(searchParams?.range ? "rent_price" : "", searchParams?.range ? priceFilter(searchParams?.range).start : "")
         .lte(searchParams?.range ? "rent_price" : "", searchParams?.range ? priceFilter(searchParams?.range).end : "")
+        // .range()
     
     return (
         <div className='bg-[#F7f7f7] py-10 m d:py-12'>

@@ -119,7 +119,11 @@ function PropertyList({data}:{data: any[] | null}) {
             {data?.length === 0 && <div>
                 <p className='text-center py-10 text-primary font-bold text-2xl'>No Property Found</p>
             </div>}
-           <PropertyPagination totalProperties={532} />
+           {data && <PropertyPagination 
+                        totalProperties={data?.length}
+                        itemsPerPage={3}
+                        path='/properties' 
+                    />}
         </div>
     )
 }
