@@ -1,6 +1,6 @@
 'use client'
 
-import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { SelectItem } from "@/components/ui/select"
 import { Button } from '@/components/ui/button'
 import PropertyCard from '../property-card/property-card'
@@ -10,7 +10,7 @@ import { PropertyFilter } from '@/@types'
 import {useRouter, useSearchParams} from 'next/navigation'
 import PropertyPagination from './pagination'
 
-function PropertyList({data}:{data: any[] | null}) {
+function PropertyList({data, totalProperties}:{data: any[] | null, totalProperties: number}) {
     const router = useRouter();
     const searchParams = useSearchParams()
     const [filters, setFilters] = useState<PropertyFilter>({
@@ -19,6 +19,7 @@ function PropertyList({data}:{data: any[] | null}) {
         beds: searchParams.get("beds") ?? "",
         priceRange: searchParams.get("range") ?? ""
     })
+    const propertyPerPage = 6;
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -120,8 +121,8 @@ function PropertyList({data}:{data: any[] | null}) {
                 <p className='text-center py-10 text-primary font-bold text-2xl'>No Property Found</p>
             </div>}
            {data && <PropertyPagination 
-                        totalProperties={data?.length}
-                        itemsPerPage={3}
+                        totalProperties={totalProperties}
+                        itemsPerPage={propertyPerPage}
                         path='/properties' 
                     />}
         </div>

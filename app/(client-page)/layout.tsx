@@ -3,13 +3,18 @@ import { Rubik_Puddles } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import FooterList from '@/components/footer/footer-list'
 import Header from '@/components/header/header'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
 
 const rubikPuddles = Rubik_Puddles({weight: "400", subsets: ["latin"]})
 
-function Layout({children}:{children: ReactNode}) {
+async function Layout({children}:{children: ReactNode}) {
+    const supabase = createServerComponentClient({cookies})
+    const {data, error} = await supabase.auth.getUser();
+
     return (
         <div className='bg-white flex flex-col min-h-screen'>
-            <Header />
+            <Header userId={data.user?.id}/>
             {children}
             <footer className='mt-auto lg:px-24'>
                 <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-4 pt-4 pb-10 gap-4">

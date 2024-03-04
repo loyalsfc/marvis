@@ -7,7 +7,7 @@ import MobileMenu from './mobile-menu'
 
 const rubikPuddles = Rubik_Puddles({weight: "400", subsets: ["latin"]})
 
-function Header() {
+function Header({userId}:{userId:string | undefined}) {
     return (
         <header className='mx-auto max-w-7xl w-full'>
             <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
@@ -24,9 +24,11 @@ function Header() {
                         <li className='nav-list'><Link href="/contact-us">Contact Us</Link></li>
                     </ul>
                 </nav>
-                <Link className='hidden md:block' href="/dashboard">
+                {userId ? <Link className='hidden md:block' href="/dashboard">
                     <Button className='bg-orange font-medium'>Agent Dashboard</Button>
-                </Link>
+                </Link> : <Link className='hidden md:block' href="/register">
+                    <Button className='bg-orange font-medium'>Register as Agent</Button>
+                </Link>}
                 <MobileMenu />
             </div>
         </header>

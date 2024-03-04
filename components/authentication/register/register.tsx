@@ -7,6 +7,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import ErrorMessage from '../error-message/error-message';
 import FormGreetings from '../form-greetings/form-greetings';
 import AuthBtn from '@/components/auth-btn/auth-btn';
+import { useRouter } from 'next/navigation';
 
 interface FormProps {
     full_name: string;
@@ -18,9 +19,9 @@ interface FormProps {
 }
 
 function Register() {
+    const router = useRouter();
     const supabase = createClientComponentClient();
     const [showTermsNotAccepted, setShowTermsNotAccepted] = useState<boolean>(false);
-    // const [showTermsNotAccepted, setShowTermsNotAccepted] = useState<boolean>(false);
     const submitBtnRef = useRef<HTMLButtonElement>(null);
     const [formError, setFormError] = useState<{isShown: boolean, text: string}>({
         isShown: false, 
@@ -96,7 +97,11 @@ function Register() {
             }
         })
         submitBtnRef.current!.disabled = false;
-        console.log(data);
+
+        if(data){
+            router.push("/confirmation")
+        }
+        
         if(error){
             setFormError({
                 isShown: true, 
@@ -106,7 +111,7 @@ function Register() {
     }
 
     return (
-        <form action="" id='signup-form' className='max-w-md mx-auto' onSubmit={handleSubmit}>
+        <form action="" id='signup-form' className='max-w-sm mx-auto' onSubmit={handleSubmit}>
             <FormGreetings
                 title='Set up your account'
                 subtitle='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.'

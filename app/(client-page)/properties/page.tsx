@@ -2,6 +2,7 @@ import PropertyList from '@/components/client/property-list/property-list'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import React from 'react'
 import { cookies } from 'next/headers';
+import { Metadata } from 'next';
 
 const priceFilter = (key: string): {start: number, end: number} => {
     switch (key) {
@@ -20,6 +21,10 @@ const priceFilter = (key: string): {start: number, end: number} => {
     }    
 }
 
+export const metadata: Metadata = {
+    title: "Properties"
+}
+
 async function Page({
     searchParams
 }:{
@@ -27,21 +32,25 @@ async function Page({
 }) {
     const supabase = createServerComponentClient({cookies});
 
-    const {data, error} = await supabase.from("property_table")
-        .select()
-        .eq((searchParams?.location === "all" || !searchParams?.location) ? "" : "property_location", searchParams?.location)
+    const locationParams = (searchParams?.location === "all" || !searchParams?.location) ? "" : "property_location";
+    const limitParams = searchParams?.limit ? parseInt(searchParams.limit) : 0;
+    const propertyPerPage = 6
+
+    const {data, count, error} = await supabase.from("property_table")
+        .select('*', { count: 'exact', head: false })
+        .eq(locationParams, searchParams?.location)
         .eq(searchParams?.type ? "property_type" : "", searchParams?.type)
         .eq(searchParams?.beds ? "bedroom" : "", searchParams?.beds)
         .gte(searchParams?.range ? "rent_price" : "", searchParams?.range ? priceFilter(searchParams?.range).start : "")
         .lte(searchParams?.range ? "rent_price" : "", searchParams?.range ? priceFilter(searchParams?.range).end : "")
-        // .range()
+        .range(limitParams * propertyPerPage, (limitParams * propertyPerPage) + propertyPerPage);
     
     return (
         <div className='bg-[#F7f7f7] py-10 m d:py-12'>
             <div className="mx-auto max-w-7xl">
                 <div className='container mx-auto px-4 md:px-8'>
                     <h1 className='text-2xl md:text-3xl text-center md:text-left font-bold text-orange mb-6'>Search properties to rent</h1>
-                    <PropertyList data={data} />
+                    <PropertyList data={data} totalProperties={count ?? 0} />
                 </div>
             </div>
         </div>

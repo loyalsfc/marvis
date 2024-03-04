@@ -21,9 +21,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
-  const supabase = createServerComponentClient({cookies})
-  const {data, error} = await supabase.auth.getUser();
   return (
     <html lang="en">
       <body className={inter.className}>
