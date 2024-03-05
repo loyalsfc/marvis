@@ -13,6 +13,7 @@ import { usePathname } from 'next/navigation'
 import RequestTour from '@/components/request-tour/request-tour'
 import MessageModal from './ask-question/question-modal'
 import PropertyInfoCard from './property-info-card'
+import { toast } from 'react-toastify'
 
 interface Props {
     data: PropertyProps[] | null;
@@ -23,6 +24,18 @@ function PropertyPage({data, slug}:Props) {
     const pathName = usePathname();
 
     const {created_at, property_type, property_title, property_address, property_location, property_image, bedroom, bath, year_built, units, property_description, additional_details, agents_table, rent_price, features, agent_id} = data![0]
+    function shareLink() {
+        // Define the URL to share
+        const url = 'https://example.com'; // Replace with your actual URL
+  
+        // Define the text to share (optional)
+        const text = 'Check out this link!';
+  
+        // Open the share dialog
+        navigator.share({ url, text })
+          .then(() => toast.success('Link shared successfully'))
+          .catch(error => console.error('Error sharing link:', error));
+      }
     
     return (
         <div>
@@ -32,7 +45,12 @@ function PropertyPage({data, slug}:Props) {
                     <span className='text-sm sm:text-base capitalize font-medium'>{property_address}, {property_location}</span>
                 </div>
                 <div className='flex gap-4 w-full sm:w-fit sm:ml-auto'>
-                    <Button className='property-btn'><Share2 /> Share</Button>
+                    <Button 
+                        className='property-btn'
+                        onClick={shareLink}
+                    >
+                        <Share2 /> Share
+                    </Button>
                     <Button className='property-btn'><FaHeart/> Favorites</Button>
                 </div>
             </div>

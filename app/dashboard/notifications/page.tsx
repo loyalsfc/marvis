@@ -3,6 +3,8 @@ import { notifications } from '@/utils/utils'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import React from 'react'
 import { cookies } from 'next/headers';
+import EmptyPages from '@/components/empty-pages/empty-pages';
+import emptyNotification from '../../../public/notification.png'
 
 async function Page() {
     const supabase = createServerComponentClient({cookies})
@@ -30,6 +32,7 @@ async function Page() {
                         unit={item.unit}
                       />
             })}
+            {notifications(properties, tenants).length === 0 && <EmptyPages emptyImage={emptyNotification} note='Your Notification is Empty' />}
           </ul>
         </div>
     )

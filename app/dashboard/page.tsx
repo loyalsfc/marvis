@@ -111,6 +111,7 @@ export default async function Home() {
                         unit={item.unit}
                       />
             })}
+            {notifications(properties, tenants).length === 0 && <li className='text-center font-semibold pt-10 text-primary'>No Notification Found</li>}
           </ul>
         </section>
     </main>

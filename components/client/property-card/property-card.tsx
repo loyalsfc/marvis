@@ -19,15 +19,17 @@ interface Props {
 function PropertyCard({image, price, name, location, bed, bathroom, slug}:Props) {
     return (
         <li>
-            <Link href={"/properties/"+slug} className={cn("rounded-lg relative bg-white border z-10 border-grey-100/50 flex flex-col hover:shadow transition-all h-full")}>
-                <AspectRatio ratio={16 / 9} className='rounded-t-lg overflow-hidden'>
-                    <Image
-                        src={image}
-                        fill
-                        alt='Demo Image'
-                        className='object-cover hover:scale-110 transition-all'
-                    />
-                </AspectRatio>
+            <div className={cn("rounded-lg relative bg-white border z-10 border-grey-100/50 flex flex-col hover:shadow transition-all h-full")}>
+                <Link href={"/properties/"+slug}>
+                    <AspectRatio ratio={16 / 9} className='rounded-t-lg overflow-hidden'>
+                        <Image
+                            src={image}
+                            fill
+                            alt='Demo Image'
+                            className='object-cover hover:scale-110 transition-all'
+                        />
+                    </AspectRatio>
+                </Link>
                 <div className="py-4 lg:py-6 px-2 lg:px-4 flex flex-col flex-1 relative">
                     {/* <span className={cn("h-10 px-4 grid place-content-center rounded-md absolute z-20 -left-2.5 -top-5 bg-orange text-sm font-medium text-white", "after:content-[] after:block after:w-0 after:h-0 after:border-l-[20px] after:border-r-[20px] after:border-b-[20px] after:border-l-transparent after:border-r-transparent after:border-b-black after:-rotate-90 after:absolute after:-left-2.5 after:-bottom-2 after:-z-50")}>Now Selling</span> */}
                     <h4 className='font-bold flex items-center justify-between mb-1'>
@@ -36,7 +38,7 @@ function PropertyCard({image, price, name, location, bed, bathroom, slug}:Props)
                             <Heart color='#FF5B19' size={20} />
                         </button>
                     </h4>
-                    <p className='lg:text-xl font-semibold capitalize'>{name}</p>
+                    <Link href={"/properties/"+slug} className='lg:text-xl font-semibold capitalize hover:text-orange hover:underline'>{name}</Link>
                     <span className='mt-auto block font-medium pt-0.5 text-ellipsis overflow-hidden whitespace-nowrap text-sm lg:text-base'>{location}</span>
                     <div className='flex items-center gap-4 pt-4 mt-5 border-t border-t-gray-500/60'>
                         {bed && <p className='flex gap-2 items-center'>
@@ -49,7 +51,7 @@ function PropertyCard({image, price, name, location, bed, bathroom, slug}:Props)
                         </p>}
                     </div>
                 </div>
-            </Link>
+            </div>
         </li>
     )
 }

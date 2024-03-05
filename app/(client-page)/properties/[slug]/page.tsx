@@ -23,17 +23,17 @@ async function Page({params}:{params: {slug: string}}) {
 
     
     if(!data || !relatedProperties){
-        return <p className='text-center pt-4'>An error occur</p>
+        return <p className='text-center pt-10 font-semibold text-3xl'>An error occur</p>
     }
-    
+
     return (
         <div>
             <GalleryImages galleryImages={data![0].property_image} />
             <div className="max-w-7xl mx-auto">
                 <div className="container mx-auto px-4 md:px-8">
-                    <Link href={"/properties"} className='flex text-sm text-orange font-semibold items-center gap-2'>
+                    <Link href={"/properties"} className='flex text-sm text-orange font-semibold items-center gap-2 hover:underline hover:scale-105 transition-all'>
                         <FaAngleLeft />
-                        Back to map 
+                        Back to Properties 
                     </Link>
                     {data && <PropertyPage data={data} slug={params.slug} />}
                 </div>

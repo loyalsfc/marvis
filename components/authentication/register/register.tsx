@@ -162,14 +162,14 @@ function Register() {
                     onChange={handleChecked}
                 />
                 <label htmlFor="terms_n_condition" className='text-sm'>
-                    Accept our <Link href="" className='text-orange'>terms</Link> and <Link href="" className='text-orange'>Condition</Link>
+                    Accept our <Link href="" className='text-orange hover:underline'>terms</Link> and <Link href="" className='text-orange hover:underline'>Condition</Link>
                 </label>
             </div>
             <p className={` ${showTermsNotAccepted ? "visible" : "invisible"}`}>
                 <i className='text-xs text-red-500'>Please accept our terms and condition</i>
             </p>
             <AuthBtn submitBtnRef={submitBtnRef} />
-            <p className='text-sm  text-center mt-6'>Already have an account? <Link href="/login" className='text-orange font-medium'>Sign in</Link></p>
+            <p className='text-sm  text-center mt-6'>Already have an account? <Link href="/login" className='text-orange font-medium hover:underline'>Sign in</Link></p>
         </form>
     )
 }

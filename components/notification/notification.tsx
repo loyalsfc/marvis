@@ -27,7 +27,7 @@ function Notification({
         <li className='grid grid-cols-12 sm:gap-4'>
             <Link 
                 href={`/dashboard/all-properties/${slug}`}
-                className='col-span-12 sm:col-span-10 text-[15px] text-dark-100 font-medium'
+                className='col-span-12 sm:col-span-10 text-[15px] text-dark-100 font-medium hover:text-orange hover:underline'
             >
                 {notification}
             </Link>
