@@ -81,7 +81,7 @@ const handleSubmit = async(e: FormEvent) => {
           placeholder='Email'
           id='email'
       />
-      <Link href="" className='block hover:text-orange text-xs text-end italic'>Forget Password?</Link>
+      <Link href="/forget-password" className='block hover:text-orange text-xs text-end italic'>Forget Password?</Link>
       <FormControl
           value={formdata.password}
           type='password'

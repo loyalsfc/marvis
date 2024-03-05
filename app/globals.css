@@ -98,7 +98,7 @@
     @apply border-b-4 border-b-orange
   }
   .form-control{
-    @apply rounded border border-orange py-2.5 px-5 bg-transparent w-full focus:outline-0
+    @apply rounded border border-primary focus:border-orange py-2.5 px-5 bg-transparent w-full focus:outline-0
   }
   .image-preview-btn{
     @apply py-[5px] px-2 bg-black/80 rounded grid place-content-center h-8 w-8 text-sm text-white hover:bg-orange/20
