@@ -1,10 +1,15 @@
+'use client'
+
 import { cn } from '@/lib/utils'
 import React from 'react'
 import { AspectRatio } from '../../ui/aspect-ratio'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import { Bath, BedDoubleIcon, Heart } from 'lucide-react'
 import Link from 'next/link'
 import { priceToString } from '@/utils/utils'
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks'
+import { toggle } from '@/lib/features/saves/saves'
+import { FaHeart } from 'react-icons/fa'
 
 interface Props {
     image:string, 
@@ -17,6 +22,13 @@ interface Props {
 }
 
 function PropertyCard({image, price, name, location, bed, bathroom, slug}:Props) {
+    const {saves} = useAppSelector(state => state.saves);
+    const dispatch = useAppDispatch()
+
+    const toggleList = (slug: string) => {
+        dispatch(toggle(slug))
+    }
+
     return (
         <li>
             <div className={cn("rounded-lg relative bg-white border z-10 border-grey-100/50 flex flex-col hover:shadow transition-all h-full")}>
@@ -34,8 +46,11 @@ function PropertyCard({image, price, name, location, bed, bathroom, slug}:Props)
                     {/* <span className={cn("h-10 px-4 grid place-content-center rounded-md absolute z-20 -left-2.5 -top-5 bg-orange text-sm font-medium text-white", "after:content-[] after:block after:w-0 after:h-0 after:border-l-[20px] after:border-r-[20px] after:border-b-[20px] after:border-l-transparent after:border-r-transparent after:border-b-black after:-rotate-90 after:absolute after:-left-2.5 after:-bottom-2 after:-z-50")}>Now Selling</span> */}
                     <h4 className='font-bold flex items-center justify-between mb-1'>
                         <p className='flex-1 overflow-hidden'><span className='text-orange text-lg lg:text-xl'>₦{priceToString(price)}/</span>annum</p>
-                        <button className="h-8 lg:h-10 w-8 lg:w-10 rounded-full border text-lg lg:text-2xl border-grey-100/50 grid place-content-center">
-                            <Heart color='#FF5B19' size={20} />
+                        <button 
+                            onClick={()=>toggleList(slug)}
+                            className="h-8 lg:h-10 w-8 lg:w-10 rounded-full border text-orange hover:scale-105 transition-all text-lg border-grey-100/50 grid place-content-center"
+                        >
+                            {saves.includes(slug) ? <FaHeart /> : <Heart color='#FF5B19' size={20} />}
                         </button>
                     </h4>
                     <Link href={"/properties/"+slug} className='lg:text-xl font-semibold capitalize hover:text-orange hover:underline'>{name}</Link>
