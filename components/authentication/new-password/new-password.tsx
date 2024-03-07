@@ -1,6 +1,6 @@
 "use client"
 
-import React, { ChangeEventHandler, FormEvent, useEffect, useRef, useState } from 'react'
+import React, { FormEvent, useRef, useState } from 'react'
 import FormGreetings from '../form-greetings/form-greetings'
 import FormControl from '../form-control/form-control'
 import AuthBtn from '@/components/auth-btn/auth-btn'
@@ -15,19 +15,6 @@ function NewPassword() {
         ConfirmNewPassword: ""
     });
     const submitBtnRef = useRef<HTMLButtonElement>(null);
-
-    useEffect(() => {
-        supabase.auth.onAuthStateChange(async (event, session) => {
-          if (event == "PASSWORD_RECOVERY") {
-            const newPassword = prompt("What would you like your new password to be?");
-            const { data, error } = await supabase.auth
-              .updateUser({ password: formData.newPassword })
-     
-            if (data) alert("Password updated successfully!")
-            if (error) alert("There was an error updating your password.")
-          }
-        })
-      }, [])
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -51,7 +38,7 @@ function NewPassword() {
 
         if(!error){
             toast.success("Password reset successful")
-            router.push("/login");
+            router.push("/dashboard");
         } else {
             toast.error(error.message);
         }
@@ -76,14 +63,14 @@ function NewPassword() {
                 type='password'
                 handleChange ={handleChange}
                 placeholder='Enter New Password'
-                id='email'
+                id='newPassword'
             />
             <FormControl
                 value={formData.ConfirmNewPassword}
                 type='password'
                 handleChange ={handleChange}
                 placeholder='Confirm Password'
-                id='confirmEmail'
+                id='ConfirmNewPassword'
             />
             <AuthBtn submitBtnRef={submitBtnRef} />
         </form>
