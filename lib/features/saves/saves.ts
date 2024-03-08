@@ -1,5 +1,6 @@
 import { RootState } from "@/store/store";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 interface Saves {
     saves: string[]
@@ -17,9 +18,11 @@ export const savesSlice = createSlice({
             if(state.saves.includes(action.payload)){
                 state.saves = state.saves.filter(item => item !== action.payload)
                 localStorage.setItem('mavris-saves', JSON.stringify(state.saves))
+                toast.success("Property removed Successfully")
             } else {
                 state.saves.push(action.payload)
                 localStorage.setItem('mavris-saves', JSON.stringify(state.saves))
+                toast.success("Property Added successfully")
             }
         }
     }

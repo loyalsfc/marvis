@@ -10,7 +10,15 @@ import { PropertyFilter } from '@/@types'
 import {useRouter, useSearchParams} from 'next/navigation'
 import PropertyPagination from './pagination'
 
-function PropertyList({data, totalProperties}:{data: any[] | null, totalProperties: number}) {
+function PropertyList({
+    data, 
+    totalProperties,
+    showFilter,
+}:{
+    data: any[] | null, 
+    totalProperties: number,
+    showFilter: boolean
+}) {
     const router = useRouter();
     const searchParams = useSearchParams()
     const [filters, setFilters] = useState<PropertyFilter>({
@@ -37,7 +45,7 @@ function PropertyList({data, totalProperties}:{data: any[] | null, totalProperti
 
     return (
         <div className='space-y-10'>
-            <form onSubmit={handleSubmit} className='w-full py-4 px-6 lg:px-8 bg-[#FFF] shadow-md'>
+            {showFilter && <form onSubmit={handleSubmit} className='w-full py-4 px-6 lg:px-8 bg-[#FFF] shadow-md'>
                 <div className='flex flex-col md:flex-row justify-between items-center max-w-full overflow-hidden'>
                     <div className='flex flex-col search-filteritem md:pr-1 md:pl-0'>
                         <label htmlFor="location" className=' text-grey-100 font-semibold'>Location</label>
@@ -102,7 +110,7 @@ function PropertyList({data, totalProperties}:{data: any[] | null, totalProperti
                 <div className='min-[966px]:hidden md:pt-4'>
                     <Button className='bg-orange font-medium px-8 w-full' >Search</Button>
                 </div>
-            </form>
+            </form>}
             <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-8 gap-4 lg:gap-8'>
                 {data?.map(item => {
                     return <PropertyCard

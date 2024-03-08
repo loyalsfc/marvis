@@ -3,9 +3,9 @@
 import { PropertyProps } from '@/@types'
 import { Button } from '@/components/ui/button'
 import { cn, downloadImage, priceToString } from '@/utils/utils'
-import { Bath, BedDoubleIcon, CalendarDaysIcon, Check, CheckCircle2, FileDigitIcon, FileTextIcon, ImageIcon, Phone, Share2 } from 'lucide-react'
+import { Bath, BedDoubleIcon, CalendarDaysIcon, Check, CheckCircle2, FileDigitIcon, FileTextIcon, Heart, ImageIcon, Phone, Share2 } from 'lucide-react'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React from 'react'
 import { FaHeart } from 'react-icons/fa'
 
 import Link from 'next/link'
@@ -14,6 +14,8 @@ import RequestTour from '@/components/request-tour/request-tour'
 import MessageModal from './ask-question/question-modal'
 import PropertyInfoCard from './property-info-card'
 import { toast } from 'react-toastify'
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks'
+import { toggle } from '@/lib/features/saves/saves'
 
 interface Props {
     data: PropertyProps[] | null;
@@ -21,9 +23,11 @@ interface Props {
 }
 
 function PropertyPage({data, slug}:Props) {
+    const dispatch = useAppDispatch()
     const pathName = usePathname();
-
+    const {saves} = useAppSelector(state => state.saves);
     const {created_at, property_type, property_title, property_address, property_location, property_image, bedroom, bath, year_built, units, property_description, additional_details, agents_table, rent_price, features, agent_id} = data![0]
+    
     function shareLink() {
         // Define the URL to share
         const url = 'https://example.com'; // Replace with your actual URL
@@ -33,9 +37,13 @@ function PropertyPage({data, slug}:Props) {
   
         // Open the share dialog
         navigator.share({ url, text })
-          .then(() => toast.success('Link shared successfully'))
-          .catch(error => console.error('Error sharing link:', error));
-      }
+            .then(() => toast.success('Link shared successfully'))
+            .catch(error => console.error('Error sharing link:', error));
+    }
+
+    const toggleList = (slug: string) => {
+        dispatch(toggle(slug))
+    }
     
     return (
         <div>
@@ -51,7 +59,13 @@ function PropertyPage({data, slug}:Props) {
                     >
                         <Share2 /> Share
                     </Button>
-                    <Button className='property-btn'><FaHeart/> Favorites</Button>
+                    <Button 
+                        className='property-btn'
+                        onClick={()=>toggleList(slug)}
+                    >
+                        <span className='h-4 w-4 grid place-content-center'>{saves.includes(slug) ? <FaHeart/> : <Heart size={16} />}</span> 
+                        Favorites
+                    </Button>
                 </div>
             </div>
 

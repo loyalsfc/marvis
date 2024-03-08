@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/lib/hooks/hooks';
 import TooltipModal from '../tooltip/tooltip';
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
 
 interface Props{
   existingOwners: OwnerProp[] | null
@@ -164,7 +165,9 @@ function PropertyForm({existingOwners}: Props) {
       .select()
     
     if(property){
-      router.push("/all-properties")
+      router.push("/dashboard/all-properties")
+    } else {
+      toast.error("An Error Occured")
     }
       
     console.log(property);

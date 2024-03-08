@@ -26,6 +26,7 @@ function MobileMenu() {
                 <nav className=''>
                     <ul className='flex flex-col items-center justify-center font-medium gap-6 text-white'>
                         <li className=''><Link href="/properties">Properties</Link></li>
+                        <li className=''><Link href="/saves">Saves</Link></li>
                         <li className=''><Link href="/about-us">About Us</Link></li>
                         <li className=''><Link href="/contact-us">Contact Us</Link></li>
                     </ul>

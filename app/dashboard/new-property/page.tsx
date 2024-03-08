@@ -5,9 +5,11 @@ import React from 'react'
 
 async function Page() {
     const supabase = createClientComponentClient()
-    const {data, error} = await supabase
+    const {data: user, error} = await supabase.auth.getUser()
+    const {data} = await supabase
         .from("property_owner")
         .select('first_name, last_name, id')
+        .eq("agent_id", user.user?.id)
         .returns<OwnerProp[] | null>()
 
     return (

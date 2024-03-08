@@ -10,7 +10,7 @@ const rubikPuddles = Rubik_Puddles({weight: "400", subsets: ["latin"]})
 
 async function Layout({children}:{children: ReactNode}) {
     const supabase = createServerComponentClient({cookies})
-    const {data, error} = await supabase.auth.getUser();
+    const {data} = await supabase.auth.getUser();
 
     return (
         <div className='bg-white flex flex-col min-h-screen'>
