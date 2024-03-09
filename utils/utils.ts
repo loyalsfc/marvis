@@ -77,7 +77,7 @@ export const notifications = (properties: {
   }
 
 export function getFeaturedImage(property_image: {url: string, isMarkedFeatured:boolean}[]){
-    const storagePath = property_image.some(item => item.isMarkedFeatured) ? property_image.find(item => item.isMarkedFeatured)?.url : property_image[0].url
+    const storagePath = property_image?.some(item => item?.isMarkedFeatured) ? property_image?.find(item => item?.isMarkedFeatured)?.url : property_image[0]?.url
     const {data} = supabase
         .storage
         .from("property_images")

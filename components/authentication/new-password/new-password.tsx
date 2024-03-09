@@ -1,7 +1,6 @@
 "use client"
 
 import React, { FormEvent, useRef, useState } from 'react'
-import FormGreetings from '../form-greetings/form-greetings'
 import FormControl from '../form-control/form-control'
 import AuthBtn from '@/components/auth-btn/auth-btn'
 import { supabase } from '@/utils/utils'
@@ -53,11 +52,7 @@ function NewPassword() {
     }
 
     return (
-        <form onSubmit={handleSubmit} id='reset-form' className="max-w-md p-4 shadow-lg rounded-md space-y-4">
-            <FormGreetings
-                title='Reset Password'
-                subtitle='Enter your email address to reset password'
-            />
+        <form onSubmit={handleSubmit} id='reset-form' className="space-y-4">
             <FormControl
                 value={formData.newPassword}
                 type='password'
@@ -69,7 +64,7 @@ function NewPassword() {
                 value={formData.ConfirmNewPassword}
                 type='password'
                 handleChange ={handleChange}
-                placeholder='Confirm Password'
+                placeholder='Confirm New Password'
                 id='ConfirmNewPassword'
             />
             <AuthBtn submitBtnRef={submitBtnRef} />

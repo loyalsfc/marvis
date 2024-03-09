@@ -12,7 +12,6 @@ import { AspectRatio } from '../ui/aspect-ratio'
 import Image from 'next/image'
 import { downloadImage, supabase } from '@/utils/utils'
 import { FaTrash } from 'react-icons/fa'
-import { useAppSelector } from '@/lib/hooks/hooks'
 import { useRouter } from 'next/navigation'
 import { formSchema, tenantFormTypes } from './formSchema'
 
@@ -24,7 +23,6 @@ function TenantForm({saveTenant}: Props) {
     const [avatar, setAvatar] = useState<string>("public/avatar.png");
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const [userIdentification, setUserIdentification] = useState<string>("cards/default_card.svg");
-    const userId = useAppSelector(state => state.user.user?.id);
     const router = useRouter()
     const form = useForm<tenantFormTypes>({
         resolver: zodResolver(formSchema),

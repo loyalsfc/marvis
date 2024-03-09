@@ -1,6 +1,8 @@
 import { downloadImage, supabase } from '@/utils/utils'
 import Image from 'next/image'
-import React, { ChangeEventHandler, Dispatch, SetStateAction } from 'react'
+import React, { ChangeEventHandler, useState } from 'react'
+import loader from '../../../public/loader.gif'
+import { toast } from 'react-toastify';
 
 interface Props{
     imagePath:string;
@@ -8,15 +10,16 @@ interface Props{
 }
 
 function ImagePreview({imagePath, manageEdit}:Props) {
-
+    const [uploading, setUploading] = useState(false)
     const uploadAvatar: ChangeEventHandler<HTMLInputElement> = async (event) => {
         try {
-            // setUploading(true)
 
         if (!event.target.files || event.target.files.length === 0) {
             throw new Error('You must select an image to upload.')
         }
 
+        setUploading(true)
+        
         const file = event.target.files[0]
         const fileExt = file.name.split('.').pop()
         const filePath = `public/${'uid'}-${Math.random()}.${fileExt}`
@@ -27,12 +30,12 @@ function ImagePreview({imagePath, manageEdit}:Props) {
             throw uploadError
         }
 
-        // onUpload(filePath)
         manageEdit(filePath)
     } catch (error) {
-        alert('Error uploading avatar!')
+        console.log(error);
+        toast.error('Error uploading avatar!')
     } finally {
-        // setUploading(false)
+        setUploading(false)
     }
     }
 
@@ -56,6 +59,12 @@ function ImagePreview({imagePath, manageEdit}:Props) {
                         alt='Profile Image'
                         className='object-cover object-top'
                     />
+                    {uploading && <div className='absolute h-full w-full bg-white'>
+                        <Image
+                            src={loader}
+                            alt='Loading gif'
+                        />
+                    </div>}
                 </div>
                 <div>
                     <div className='flex flex-col sm:flex-row items-start'>
@@ -71,7 +80,7 @@ function ImagePreview({imagePath, manageEdit}:Props) {
                         <button  
                             onClick={deleteImage} 
                             type='button' 
-                            className={`btn bg-grey-100 text-white py-2.5 px-4  ${imagePath === "public/avatar.png" ? "cursor-not-allowed" : ""}`}
+                            className={`btn bg-grey-100 text-white py-2.5 px-4 hover:bg-grey-100/90  ${imagePath === "public/avatar.png" ? "cursor-not-allowed" : ""}`}
                             disabled={imagePath === "public/avatar.png" ? true : false}
                         >
                             Delete

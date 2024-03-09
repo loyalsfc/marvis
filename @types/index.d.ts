@@ -118,11 +118,24 @@ export interface PropertyUnits{
     expiry_date: string,
     isAvailable: boolean,
     rent_duration: string
-  }
+}
 
-  export interface PropertyFilter{
+export interface PropertyFilter{
     location: string;
     type: string;
     beds: string;
     priceRange: string;
-  }
+}
+
+export interface AgentDetails{
+    id: number;
+    created_at: string;
+    full_name: string;
+    agency_name: string;
+    agent_id: string;
+    phone_number: string;
+    email: string;
+    home_address: string;
+    office_address: string;
+    profile_image: string;
+}

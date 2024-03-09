@@ -22,11 +22,18 @@ export default async function RootLayout({
 
   const supabase = createServerComponentClient({cookies})
   const {data, error} = await supabase.auth.getUser();
+
+  const {data: userData, error: userError} = await supabase
+        .from("agents_table")
+        .select(`profile_image, full_name`)
+        .eq("agent_id", data.user?.id)
+        .limit(1)
+        .single()
   
   return (
         <ReduxProvider>
           <div className='md:p-4 h-screen flex md:gap-4'>
-            {data?.user && <Aside data={data} />}
+            {userData && <Aside data={data} userData={userData} />}
             <div className='flex-1 overflow-hidden'>
               {children}
             </div>
