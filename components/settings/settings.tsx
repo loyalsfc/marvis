@@ -23,7 +23,7 @@ export const FormSchema = z.object({
     }).max(14,{
         message: "Phone Number can not be more than 14 characters"
     }),
-    email: z.string().email().min(5),
+    email: z.string().email().min(5).optional(),
     home_address: z.string()
         .min(10, {
             message: "Address must be at least 10 characters.",
@@ -81,7 +81,8 @@ function Settings({
                 phone_number,
                 home_address,
                 office_address,
-                profile_image: avatar
+                profile_image: avatar,
+                profile_updated: true,
             })
             .eq("id", data.id)
 

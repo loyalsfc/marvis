@@ -28,6 +28,9 @@ function Login() {
   const updateForm = (event: any) => {
     const {id, value} = event.target;
     event.target.nextElementSibling?.classList.replace('visible', 'invisible');
+    setFormError(prevState => {
+      return {...prevState, isShown: false}
+    })
     setFormData(prevDetails => {
         return {...prevDetails, [id]: value}
     })

@@ -1,5 +1,6 @@
 import { PropertyUnits } from '@/@types';
 import Notification from '@/components/notification/notification'
+import ProfileNotification from '@/components/profile-notification/profile-notification';
 import PropertyCountCard from '@/components/propery-count-card/property-count-card'
 import { daysToExpire, notifications } from '@/utils/utils';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -11,6 +12,13 @@ export default async function Home() {
   const supabase = createServerComponentClient({cookies})
   const {data, error} = await supabase.auth.getUser();
   const full_name = data?.user?.user_metadata?.full_name
+
+  const {data: userData} = await supabase
+    .from("agents_table")
+    .select(`profile_updated`)
+    .eq("agent_id", data?.user?.id)
+    .limit(1)
+    .single()
 
   const {data: properties, error: propertiesError} = await supabase
     .from("property_table")
@@ -65,6 +73,7 @@ export default async function Home() {
 
   return (
     <main className='h-full w-full min-[920px]:flex flex-col page-wrapper overflow-scroll'>
+      {!userData?.profile_updated && <ProfileNotification />}
       <div className='mb-6'>
         <h2 className='text-2xl font-semibold'>Welcome {full_name?.split(" ")[0]}</h2>
         <p className='text-sm'>This is what is happening in your account...</p>

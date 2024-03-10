@@ -8,6 +8,7 @@ import ErrorMessage from '../error-message/error-message';
 import FormGreetings from '../form-greetings/form-greetings';
 import AuthBtn from '@/components/auth-btn/auth-btn';
 import { useRouter } from 'next/navigation';
+import { getURL } from '@/utils/utils';
 
 interface FormProps {
     full_name: string;
@@ -93,7 +94,7 @@ function Register() {
                     full_name,
                     mobile_number,
                 },
-                emailRedirectTo: 'https://example.com/welcome'
+                emailRedirectTo: `${getURL()}complete-registration`
             }
         })
         submitBtnRef.current!.disabled = false;

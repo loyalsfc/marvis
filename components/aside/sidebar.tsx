@@ -52,7 +52,7 @@ function Aside({
             <div className={cn('hidden md:flex sm:group-hover:flex flex-col items-center pb-5', menu && 'flex')}>
                 <div className='relative h-20 w-20 rounded-full overflow-hidden border mb-3'>
                     <Image
-                        src={downloadImage(userData.profile_image)}
+                        src={userData?.profile_image ?downloadImage(userData?.profile_image) : "/profile-img-placeholder.png"}
                         fill
                         alt='Profile Picture'
                         className='object-cover object-top'
