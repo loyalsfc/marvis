@@ -168,7 +168,7 @@ function PropertyPage({data, slug}:Props) {
                                     </tr>
                                     <tr>
                                         <td className='py-1.5 font-medium'>City</td>
-                                        <td className='property-details'>{property_location}</td>
+                                        <td className='property-details capitalize'>{property_location}</td>
                                     </tr>
                                     <tr>
                                         <td className='py-1.5 font-medium'>Year Built</td>

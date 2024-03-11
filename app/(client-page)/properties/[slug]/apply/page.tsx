@@ -2,6 +2,11 @@ import TenantApplication from '@/components/tenant-form/tenant-registration/tena
 import React from 'react'
 import { cookies } from 'next/headers'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: "Apply For Property"
+}
 
 async function Page({params}:{params: {slug: string}}) {
     const supabase = createServerComponentClient({cookies})

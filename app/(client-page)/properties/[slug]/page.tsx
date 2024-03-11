@@ -7,6 +7,32 @@ import PropertyPage from '@/components/client/property-page/property-page'
 import { getFeaturedImage } from '@/utils/utils'
 import PropertyCard from '@/components/client/property-card/property-card'
 import GalleryImages from '@/components/client/gallery-images/gallery-images'
+import { Metadata, ResolvingMetadata } from 'next'
+
+type Props = {
+    params: { slug: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export async function generateMetadata(
+    { params }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    // read route params
+    const slug = params.slug as string;
+    const supabase = createServerComponentClient({cookies});
+    const { data } = await supabase.from('property_table').select('property_title').eq('slug', slug)
+   
+    // optionally access and extend (rather than replace) parent metadata
+    const previousImages = (await parent).openGraph?.images || []
+    
+    return {
+      title: data ? data![0]?.property_title : "Mavris ",
+      openGraph: {
+        images: ['/some-specific-page-image.jpg', ...previousImages],
+      },
+    }
+  }
 
 async function Page({params}:{params: {slug: string}}) {
     const supabase = createServerComponentClient({cookies})

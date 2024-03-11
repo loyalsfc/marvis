@@ -1,12 +1,13 @@
 import { OwnerProp } from '@/@types'
 import CompleteProfileModal from '@/components/profile-notification/complete-profile-modal'
 import PropertyForm from '@/components/property-form/property-form'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
 import React from 'react'
 
 async function Page() {
-    const supabase = createClientComponentClient()
-    const {data: user, error} = await supabase.auth.getUser()
+    const supabase = createServerComponentClient({cookies})
+    const {data: user} = await supabase.auth.getUser()
 
     const {data: userData} = await supabase
         .from("agents_table")

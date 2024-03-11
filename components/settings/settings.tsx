@@ -10,6 +10,7 @@ import { z } from 'zod';
 import ZodTemplate, { ZodTemplateTextarea } from '../tenant-form/zod-template/zod-template';
 import { supabase } from '@/utils/utils';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 export const FormSchema = z.object({
     full_name: z.string().min(2,{
@@ -47,6 +48,7 @@ function Settings({
 }) {
     const [avatar, setAvatar] = useState<string>(data?.profile_image ?? "public/avatar.png");
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+    const router = useRouter();
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -89,7 +91,8 @@ function Settings({
         if(error) {
             toast.error(error.message)
         } else {
-            toast.success("Profile Update Successful")
+            toast.success("Profile Update Successful");
+            router.push("/dashboard");
         }
 
         setIsSubmitting(false);

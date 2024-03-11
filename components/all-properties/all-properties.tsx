@@ -6,25 +6,64 @@ import FilterBtn from "../filter-btn/filter-btn";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useAppSelector } from "@/lib/hooks/hooks";
-import { cn } from "@/utils/utils";
+import { cn, supabase } from "@/utils/utils";
 import {DeleteProperty} from "../deleteProperty/delete-property";
 import { Filter, PlusSquare } from "lucide-react";
+import { toast } from "react-toastify";
 
 export function AllProperties({property}:{property: any[] | null}){
     const [filter, setFilter] = useState<string>("All properties");
     const mobileMenuExpanded = useAppSelector(state => state.menu.value);
+    const {user} = useAppSelector(state => state.user)
+
+    const exportProperties = async () => {
+        const {data, error} = await supabase
+            .from("property_table")
+            .select()
+            .eq("agent_id", user?.id)
+            .csv()
+
+        if(error) {
+            toast.error("An Error Occured");
+        } else {
+            downloadAsCsv(data);
+        }
+    }
+
+    function downloadAsCsv(data: string) {
+        const blob = new Blob([data], { type: 'text/csv' });
+        // Create URL for the Blob
+        const url = URL.createObjectURL(blob);
+
+        // Create download link/button
+        const downloadLink = document.createElement('a');
+        downloadLink.href = url;
+        downloadLink.download = 'data.csv';
+        downloadLink.textContent = 'Download CSV';
+
+        // Append download link/button to the DOM
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        toast.success("Properties Export Successful");
+        document.body.removeChild(downloadLink);
+    }
     
     return(
         <div className={cn("overflow-hidden h-full flex flex-col", mobileMenuExpanded && "pl-12")}>
             <header className="flex justify-between items-start flex-col gap-4 sm:flex-row md:flex-col min-[1021px]:flex-row">
                 <h2 className="text-xl sm:text-2xl min-[1065px]:text-3xl font-bold text-[#1c1c1c]">Properties Management</h2>
                 <div className="flex gap-3 sm:gap-[22px] justify-end ml-auto">
-                    <Link href={"/dashboard/export-properties"} className="gap-2.5 btn btn-secondary border border-orange">
+                    <button
+                        className="gap-2.5 btn btn-secondary border border-orange hover:bg-orange hover:text-white"
+                        onClick={exportProperties}
+                        disabled={property?.length === 0}
+                    >
                         <Filter />
                         Export
-                    </Link>
-                    <Link href={"/dashboard/new-property"} className='btn btn-primary whitespace-nowrap'>
-                        <PlusSquare color='#FFF' />
+                    </button>
+                    <Link href={"/dashboard/new-property"} className='btn btn-primary whitespace-nowrap group'>
+                        <PlusSquare color='#FFF' className=" group-hover:hidden" />
+                        <PlusSquare color='#FF5B19' className="hidden group-hover:block" />
                         Add Property
                     </Link>
                 </div>

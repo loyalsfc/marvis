@@ -122,13 +122,13 @@ function PropertyOwner({formDetails, formFunc, existingOwners, ownerId, setOwner
                     </PopoverTrigger>
                     <PopoverContent className="w-[200px] p-0">
                         <Command>
-                            <CommandInput placeholder="Search framework..." />
-                            <CommandEmpty>No framework found.</CommandEmpty>
+                            <CommandInput placeholder="Search Landlord..." />
+                            <CommandEmpty>No Landlord found.</CommandEmpty>
                             <CommandGroup>
-                                {owners.map((framework) => (
+                                {owners.map((landlord) => (
                                 <CommandItem
-                                    key={framework.value}
-                                    value={framework.value}
+                                    key={landlord.value}
+                                    value={landlord.value}
                                     onSelect={(currentValue) => {
                                     setOwnerId(currentValue === ownerId ? "" : currentValue)
                                     setOpen(false)
@@ -137,10 +137,10 @@ function PropertyOwner({formDetails, formFunc, existingOwners, ownerId, setOwner
                                     <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            ownerId === framework.value ? "opacity-100" : "opacity-0"
+                                            ownerId === landlord.value ? "opacity-100" : "opacity-0"
                                         )}
                                     />
-                                    {framework.label}
+                                    {landlord.label}
                                 </CommandItem>
                                 ))}
                             </CommandGroup>

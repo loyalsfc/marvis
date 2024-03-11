@@ -6,7 +6,7 @@ import React from 'react'
 type Props = {
     params: { slug: string }
     searchParams: { [key: string]: string | string[] | undefined }
-  }
+}
    
 export async function generateMetadata(
     { params }: Props,
@@ -26,7 +26,7 @@ export async function generateMetadata(
         images: ['/some-specific-page-image.jpg', ...previousImages],
       },
     }
-  }
+}
 
 async function Page({ params }: { params: { slug: string } }) {
     const supabase = createClientComponentClient();

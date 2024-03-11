@@ -94,21 +94,32 @@ function Register() {
                     full_name,
                     mobile_number,
                 },
-                emailRedirectTo: `${getURL()}complete-registration`
+                emailRedirectTo: `${getURL()}dashboard/complete-registration`
             }
         })
-        submitBtnRef.current!.disabled = false;
 
-        if(data){
-            router.push("/confirmation")
-        }
-        
         if(error){
             setFormError({
                 isShown: true, 
                 text: error?.message
             })
+            submitBtnRef.current!.disabled = false;
+            return;
         }
+
+        const {data:userData, error: userError} = await supabase
+            .from("agents_table")
+            .insert({full_name, phone_number: mobile_number})
+
+        submitBtnRef.current!.disabled = false;
+
+        if(userError){
+            router.push("/confirmation")
+        } else {
+            
+        }
+        
+        
     }
 
     return (
