@@ -8,6 +8,7 @@ import { downloadImage } from '@/utils/utils'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import DeleteApplication from '@/components/application-modals/delete-application'
+import { Metadata } from 'next'
 
 interface Data {
     id: any;
@@ -23,6 +24,10 @@ interface Data {
         property_location: string;
     };
 }
+
+export const metadata: Metadata = {
+    title: "Property Applications"
+  }
 
 async function Page() {
     const supabase = createServerComponentClient({cookies})

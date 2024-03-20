@@ -3,6 +3,11 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import React from 'react'
 import { cookies } from 'next/headers'
 import { AgentDetails } from '@/@types'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: "Settings"
+}
 
 async function Page() {
     const supabase = createServerComponentClient({cookies})

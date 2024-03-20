@@ -13,7 +13,7 @@ export default async function Home() {
   const {data, error} = await supabase.auth.getUser();
   const full_name = data?.user?.user_metadata?.full_name
 
-  const {data: userData} = await supabase
+  const {data: userData, error: userError} = await supabase
     .from("agents_table")
     .select(`profile_updated`)
     .eq("agent_id", data?.user?.id)
@@ -29,6 +29,10 @@ export default async function Home() {
     .from("tenants")
     .select(`full_name, id`)
     .eq("agent_id", data?.user?.id)
+
+  if(error || userError || propertiesError || tenantsError){
+    return <p className='pt-20 text-center font-bold text-orange'>An Error Occured</p>
+  }
 
   const totalProperties = properties?.reduce((accumulator, currntValue) => accumulator + currntValue.units, 0);
   const vacantProperties = properties?.reduce((accumulator, currentValue) => accumulator + currentValue.vacant_units, 0);

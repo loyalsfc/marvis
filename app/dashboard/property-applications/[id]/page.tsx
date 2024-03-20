@@ -3,10 +3,15 @@ import ReviewApplication from '@/components/application-modals/review-applicatio
 import { Button } from '@/components/ui/button';
 import { downloadImage } from '@/utils/utils';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
+
+export const metadata: Metadata = {
+    title: "Confirm Property Application"
+}
 
 async function Page({params}:{params: {id:string}}) {
     const supabase = createServerComponentClient({cookies})

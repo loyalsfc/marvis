@@ -6,6 +6,11 @@ import aboutImage from "../../../public/contact-us.png"
 import Image from 'next/image'
 import { Mail, MapPin, PhoneCall } from 'lucide-react'
 import Link from 'next/link'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: "Contact Us"
+}
 
 function Page() {
     return (

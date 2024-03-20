@@ -2,12 +2,12 @@
 import PropertyList from '@/components/client/property-list/property-list';
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { supabase } from '@/utils/utils'
-import React, { useEffect, useState } from 'react'
+import { Metadata } from 'next';
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-query';
 
-interface Data {
-    isLoading: boolean;
-    properties: any[]
+export const metadata: Metadata = {
+    title: "Apply For Property"
 }
 
 function Page() {

@@ -4,8 +4,12 @@ import React from 'react'
 import moment from "moment"
 import Link from 'next/link'
 import emptyMessage from '../../../public/empty-messages.png'
-import Image from 'next/image'
 import EmptyPages from '@/components/empty-pages/empty-pages'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: "Messages"
+}
 
 async function Page() {
     const supabase = createServerComponentClient({cookies})

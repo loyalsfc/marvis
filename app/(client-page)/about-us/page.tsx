@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 import { ArrowDown, EyeIcon, Star, Target } from 'lucide-react'
+import { Metadata } from 'next'
 import Image from 'next/image'
 import React from 'react'
 import { FaStar } from 'react-icons/fa'
@@ -29,6 +30,10 @@ const partners = [
     "/partners/partner-3.png", 
     "/partners/partner-4.jpg"
 ]
+
+export const metadata: Metadata = {
+    title: "About Us"
+}
 
 function Page() {
     return (

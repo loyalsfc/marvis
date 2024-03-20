@@ -5,11 +5,16 @@ import React from 'react'
 import { cookies } from 'next/headers';
 import EmptyPages from '@/components/empty-pages/empty-pages';
 import emptyNotification from '../../../public/notification.png'
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Notifications"
+}
 
 async function Page() {
-    const supabase = createServerComponentClient({cookies})
-    const {data, error} = await supabase.auth.getUser();
-    const {data: properties, error: propertiesError} = await supabase
+  const supabase = createServerComponentClient({cookies})
+  const {data, error} = await supabase.auth.getUser();
+  const {data: properties, error: propertiesError} = await supabase
     .from("property_table")
     .select(`property_title, property_units, vacant_units, units, slug`)
     .eq("agent_id", data?.user?.id)
@@ -18,6 +23,10 @@ async function Page() {
     .from("tenants")
     .select(`full_name, id`)
     .eq("agent_id", data?.user?.id)
+
+    if( error || propertiesError || tenantsError ) {
+      return <EmptyPages emptyImage={emptyNotification} note='An error occured' />
+    }
 
     return (
         <div className='page-wrapper h-full'>

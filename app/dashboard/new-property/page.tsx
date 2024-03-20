@@ -2,8 +2,13 @@ import { OwnerProp } from '@/@types'
 import CompleteProfileModal from '@/components/profile-notification/complete-profile-modal'
 import PropertyForm from '@/components/property-form/property-form'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import React from 'react'
+
+export const metadata: Metadata = {
+    title: "Add Property"
+}
 
 async function Page() {
     const supabase = createServerComponentClient({cookies})

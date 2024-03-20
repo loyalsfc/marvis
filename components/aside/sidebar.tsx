@@ -10,16 +10,18 @@ import { BadgeHelp, Bell, FilePlus, HomeIcon, LayoutDashboard, LocateFixedIcon, 
 import { cn, downloadImage } from '@/utils/utils'
 import { close, open } from '@/lib/features/mobilemenu/mobilemenu'
 
-function Aside({
-    data,
-    userData
-}:{
+interface Props {
     data: any;
     userData: {
         profile_image: any;
         full_name: any;
     }
-}) {
+}
+
+function Aside({
+    data,
+    userData
+}: Props) {
     const dispatch = useAppDispatch();
     const pathName = usePathname();
     const menu = useAppSelector(state => state.menu.value)

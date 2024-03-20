@@ -25,7 +25,7 @@ import { getFeaturedImage } from '@/utils/utils'
 
 async function Page() {
     const supabase = createServerComponentClient({cookies});
-    const {data, error} = await supabase.from("property_table")
+    const {data} = await supabase.from("property_table")
         .select()
         .limit(6)
 
