@@ -7,7 +7,7 @@ interface Saves {
 }
 
 const initialState = {
-    saves: JSON.parse(localStorage.getItem("mavris-saves") ?? "[]")
+    saves: typeof localStorage != "undefined" ? JSON.parse(localStorage.getItem("mavris-saves") ?? "[]") : []
 } as Saves
 
 export const savesSlice = createSlice({
