@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 import { Quicksand } from 'next/font/google'
 import './globals.css'
-import Aside from '@/components/aside/sidebar'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
 import ReduxProvider from '@/components/reduxProvider/reduxProvider'
 
 const inter = Quicksand({ 

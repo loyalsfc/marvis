@@ -14,13 +14,14 @@ type Props = {
     searchParams: { [key: string]: string | string[] | undefined }
 }
 
+const supabase = createServerComponentClient({cookies});
+
 export async function generateMetadata(
     { params }: Props,
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     // read route params
     const slug = params.slug as string;
-    const supabase = createServerComponentClient({cookies});
     const { data } = await supabase.from('property_table').select('property_title').eq('slug', slug)
    
     // optionally access and extend (rather than replace) parent metadata
@@ -35,7 +36,6 @@ export async function generateMetadata(
   }
 
 async function Page({params}:{params: {slug: string}}) {
-    const supabase = createServerComponentClient({cookies})
     const {data, error} = await supabase
         .from("property_table")
         .select(`*, agents_table ( * )`)
@@ -57,7 +57,7 @@ async function Page({params}:{params: {slug: string}}) {
             <GalleryImages galleryImages={data![0].property_image} />
             <div className="max-w-7xl mx-auto">
                 <div className="container mx-auto px-4 md:px-8">
-                    <Link href={"/properties"} className='flex text-sm text-orange font-semibold items-center gap-2 hover:underline hover:scale-105 transition-all'>
+                    <Link href={"/properties"} className='flex text-sm text-orange w-fit font-semibold items-center gap-2 hover:underline hover:scale-105 transition-all'>
                         <FaAngleLeft />
                         Back to Properties 
                     </Link>
