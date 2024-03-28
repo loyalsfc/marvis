@@ -79,7 +79,7 @@ function RequestTour({slug, agentId, propertyTitle}:{slug:string; agentId:string
                 propertyTitle={propertyTitle} 
             />
             
-            <span className='text-sm font-medium'>It's free, with no obligation - cancel anytime</span>
+            <span className='text-sm font-medium'>It&apos;s free, with no obligation - cancel anytime</span>
         </div>
     )
 }

@@ -51,7 +51,7 @@ function Page() {
                     </section>
 
                     <section className='pt-20'>
-                        <h3 className="text-4xl mb-8 font-bold text-orange text-center">Let's Chat</h3>
+                        <h3 className="text-4xl mb-8 font-bold text-orange text-center">Let&apos;s Chat</h3>
                         <div className='flex flex-col sm:flex-row justify-around gap-4 text-center font-medium'>
                             <div className='flex flex-col items-center'>
                                 <PhoneCall className='mb-2' color='#FF5B19' />

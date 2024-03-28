@@ -1,6 +1,5 @@
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
@@ -11,18 +10,15 @@ import {
   } from "@/components/ui/alert-dialog"
   import { Button } from "@/components/ui/button"
 import { supabase } from "@/utils/utils";
-import { ToastAction } from "../ui/toast";
-import { useToast } from "../ui/use-toast";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
   
 export function DeleteProperty({propertyId}:{propertyId: number}) {
     const [isDeleting, setIsDeleting] = useState<boolean>(false)
     const cancelBtn = useRef<HTMLButtonElement>(null)
-    const { toast } = useToast()
+    const router = useRouter();
 
     const deleteProperty = async() => {
-        const router = useRouter();
         setIsDeleting(true)
         const {data, error} = await supabase.from("property_table").delete().eq("id", propertyId);
         
@@ -42,7 +38,7 @@ export function DeleteProperty({propertyId}:{propertyId: number}) {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete this property and it's associated units.
+              This action cannot be undone. This will permanently delete this property and it&apos;s associated units.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

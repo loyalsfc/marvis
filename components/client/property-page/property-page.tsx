@@ -208,7 +208,7 @@ function PropertyPage({data, slug}:Props) {
                         </>}
                     </div>
                     <p className='font-medium py-4'>
-                        You are agree to mavris' Terms of Use & Privacy Policy. By choosing to contact a property, you also agree theat Estatery Group, landlords, and property managers may call or text yoou about any inquiries you submit through our services, which may involve use of automated means and prerecorded/articial voices. You don't need to consent as a condition of renting any property, or buying any other goods or services. Message/data rates may apply.
+                        You are agree to mavris&apos; Terms of Use & Privacy Policy. By choosing to contact a property, you also agree theat Estatery Group, landlords, and property managers may call or text yoou about any inquiries you submit through our services, which may involve use of automated means and prerecorded/articial voices. You don&apos;t need to consent as a condition of renting any property, or buying any other goods or services. Message/data rates may apply.
                     </p>
                 </div>
             </div>

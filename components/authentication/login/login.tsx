@@ -93,7 +93,7 @@ const handleSubmit = async(e: FormEvent) => {
           id='password'
       />
       <AuthBtn submitBtnRef={submitBtnRef} />
-      <p className='text-sm  text-center mt-6'>Don't have an account yet? <Link href="/register" className='text-orange font-medium hover:underline'>Sign Up</Link></p>
+      <p className='text-sm  text-center mt-6'>Don&apos;t have an account yet? <Link href="/register" className='text-orange font-medium hover:underline'>Sign Up</Link></p>
     </form>
   )
 }

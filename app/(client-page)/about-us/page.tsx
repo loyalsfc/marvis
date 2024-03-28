@@ -69,7 +69,7 @@ function Page() {
                 <div className="h-full w-full bg-black/70 absolute top-0 left-0 -z-10"/>
                 <div className="container mx-auto px-4 md:px-8">
                     <div className="md:w-3/5 lg:w-2/5 text-center md:text-right leading-loose ml-auto text-white text-xl font-medium md:mr-10">
-                        <p>At Mavris, we pride ourselves on delivering unparalleled excellence, ensuring every client enjoys the luxury they can afford. From personalized consultations to bespoke property solutions, we are dedicated to exceeding your expectations at every turn. Discover a new standard of excellence in real estate with Mavris."</p>
+                        <p>At Mavris, we pride ourselves on delivering unparalleled excellence, ensuring every client enjoys the luxury they can afford. From personalized consultations to bespoke property solutions, we are dedicated to exceeding your expectations at every turn. Discover a new standard of excellence in real estate with Mavris.</p>
                     </div>
                 </div>
             </section>

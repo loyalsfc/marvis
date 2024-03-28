@@ -114,7 +114,7 @@ async function Page() {
                                     <Button variant="ghost" >For Tenants</Button>
                                 </div>
                                 <h3 className='text-2xl lg:text-3xl text-orange font-semibold'>We make it easy for tenants and landlords</h3>
-                                <p className='text-sm lg:text-base'>Whether it's letting your current home, manage your properties or looking for house to rent, we make it easy and efficient, The best part? you'll save a bunch of money and time with our services.</p>
+                                <p className='text-sm lg:text-base'>Whether it&apos;s letting your current home, manage your properties or looking for house to rent, we make it easy and efficient, The best part? you&apos;ll save a bunch of money and time with our services.</p>
                                 <Button className='bg-orange font-medium flex items-center gap-2 w-full sm:w-fit'>See More <FaAngleRight/></Button>
                             </article>
                         </div>
@@ -192,7 +192,7 @@ async function Page() {
                             <p className='max-w-sm mx-auto font-semibold'>See what our property managers, landlords, and tenants have to say</p>
 
                             <div className='pt-8'>
-                                <p className='max-w-xl mx-auto font-medium mb-4'>"As a young professional constantly on the move for new opportunities, finding the perfect place to live can feel like a daunting task. Between hectic job searches and navigating unfamiliar cities, the last thing I want is to waste precious time sifting through endless listings or dealing with unreliable landlords. That's where Mavris came in and completely transformed my rental experience."</p>
+                                <p className='max-w-xl mx-auto font-medium mb-4'>&quot;As a young professional constantly on the move for new opportunities, finding the perfect place to live can feel like a daunting task. Between hectic job searches and navigating unfamiliar cities, the last thing I want is to waste precious time sifting through endless listings or dealing with unreliable landlords. That&apos;s where Mavris came in and completely transformed my rental experience.&quot;</p>
                                 <p className='font-semibold text-sm'>Ayo, Ayoade, <span className='font-normal'>Render</span></p>
 
                                 <ul className='flex justify-center items-center gap-4 pt-8'>
@@ -243,7 +243,7 @@ async function Page() {
                     <div className='flex text-white flex-col items-center text-center max-w-xl mx-auto'>
                         <h5 className='text-primary text-xl font-semibold'>No Spam, P   romise</h5>
                         <h6 className=' font-bold text-3xl mb-5'>Are you a landlord?</h6>
-                        <p>Discover ways to increase your home's value and get listed. No Spam</p>
+                        <p>Discover ways to increase your home&apos;s value and get listed. No Spam</p>
                         <form className='flex flex-col sm:flex-row items-center w-full my-5 relative'>
                             <input type="text" className='flex-1 w-full bg-white text-primary p-2.5 sm:p-4 rounded-md border border-transparent focus:border-orange' />
                             <Button className='bg-orange/90 px-8 py-3 sm:py-2.5 sm:absolute sm:right-2 w-full sm:w-fit mt-4 sm:mt-0 border border-transparent hover:border-orange hover:text-orange'>Submit</Button>

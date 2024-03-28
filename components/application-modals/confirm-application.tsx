@@ -142,7 +142,7 @@ function ConfirmApplication({units, tenantId, propertyId, slug, applicationId}: 
                                         >
                                             {units.map(item => {
                                                 return(
-                                                    <FormItem className="flex items-center space-x-3 space-y-0">
+                                                    <FormItem key={item.unit} className="flex items-center space-x-3 space-y-0">
                                                         <FormControl className={!item.isAvailable ? "text-muted-foreground" : ""}>
                                                             <RadioGroupItem disabled={!item.isAvailable} value={item.unit} />
                                                         </FormControl>

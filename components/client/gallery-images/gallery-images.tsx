@@ -39,7 +39,7 @@ function GalleryImages({galleryImages}:{galleryImages: PropertyProps["property_i
                     >
                         {galleryImages.map((item, index) => {
                             return(
-                                <SwiperSlide>
+                                <SwiperSlide key={index}>
                                     <span className='absolute top-4 left-4'>{index+1}/{galleryImages.length}</span>
                                     <div className='h-full w-full relative shrink-0 transition-all'>
                                         <Image
