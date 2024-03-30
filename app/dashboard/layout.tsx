@@ -29,11 +29,17 @@ export default async function RootLayout({
         .eq("agent_id", data.user?.id)
         .limit(1)
         .single()
-  
+
+  const {count: messages, error: messageError} = await supabase
+    .from("messages")
+    .select(`question`, { count: 'exact', head: false })
+    .eq("agent_id", data.user?.id)
+    .eq("isread", false)
+
   return (
         <ReduxProvider>
           <div className='md:p-4 h-screen flex md:gap-4'>
-            {userData && <Aside data={data} userData={userData} />}
+            {userData && <Aside data={data} userData={userData} unread_message={messages}/>}
             <div className='flex-1 overflow-hidden'>
               {children}
             </div>

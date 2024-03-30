@@ -80,7 +80,7 @@
     @apply text-orange font-medium text-xl
   }
   .side-menu-item{
-    @apply hover:bg-white/10 px-3 md:pr-7 py-2 sm:group-hover:pr-7 flex gap-4 items-center
+    @apply hover:bg-white/10 px-3 py-2 flex gap-4 items-center
   }
   .page-wrapper{
     @apply bg-white rounded-2xl py-[26px] px-4 sm:px-6

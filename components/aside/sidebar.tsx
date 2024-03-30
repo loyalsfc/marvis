@@ -15,12 +15,14 @@ interface Props {
     userData: {
         profile_image: any;
         full_name: any;
-    }
+    },
+    unread_message: number | null
 }
 
 function Aside({
     data,
-    userData
+    userData,
+    unread_message
 }: Props) {
     const dispatch = useAppDispatch();
     const pathName = usePathname();
@@ -83,6 +85,13 @@ function Aside({
                     path={pathName}
                 />
                 <Navs
+                    Icon={Mail}
+                    link='/messages'
+                    text='Messages'
+                    path={pathName}
+                    unread={unread_message}
+                />
+                <Navs
                     Icon={FilePlus}
                     link='/property-applications'
                     text='Applications'
@@ -99,12 +108,7 @@ function Aside({
                     link='/notifications'
                     text='Notification'
                     path={pathName}
-                />
-                <Navs
-                    Icon={Mail}
-                    link='/messages'
-                    text='Messages'
-                    path={pathName}
+                    unread={7}
                 />
                 <Navs
                     Icon={SettingsIcon}

@@ -19,6 +19,8 @@ async function Page() {
         .eq("agent_id", user.user?.id)
         .order("id", {ascending: false})
 
+    console.log(data)
+
     return (
         <div className='page-wrapper h-full flex flex-col'>
             <h3 className='text-2xl font-bold text-orange mb-8'>Tour Requests</h3>
