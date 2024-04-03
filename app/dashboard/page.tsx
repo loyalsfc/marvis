@@ -32,9 +32,9 @@ export default async function Home() {
   if(error || userError || propertiesError || tenantsError){
     return <p className='pt-20 text-center font-bold text-orange'>An Error Occured</p>
   }
-  console.log(properties[0].units)
-  const totalProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.units, 0);
-  const vacantProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.vacant_units, 0);
+
+  // const totalProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.units, 0);
+  // const vacantProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.vacant_units, 0);
 
   
   const preExpired = () => {
@@ -89,12 +89,12 @@ export default async function Home() {
             <PropertyCountCard
               title='Total'
               subtite='Properties'
-              count={totalProperties}
+              count={200}
             />
             <PropertyCountCard
               title='Vacant'
               subtite='Properties'
-              count={vacantProperties}
+              count={19}
             />
             <PropertyCountCard
               title='Pre-expired'
