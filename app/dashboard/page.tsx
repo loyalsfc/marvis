@@ -1,15 +1,13 @@
-import { PropertyUnits } from '@/@types';
+import { PropertyProps, PropertyUnits } from '@/@types';
 import Notification from '@/components/notification/notification'
 import ProfileNotification from '@/components/profile-notification/profile-notification';
 import PropertyCountCard from '@/components/propery-count-card/property-count-card'
+import { createClient } from '@/utils/supabase/server';
 import { daysToExpire, notifications } from '@/utils/utils';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import Link from 'next/link';
-const supabase = createServerComponentClient({cookies})
 
 export default async function Home() {
-
+  const supabase = createClient()
   const {data, error} = await supabase.auth.getUser();
   const full_name = data?.user?.user_metadata?.full_name
 
@@ -24,6 +22,7 @@ export default async function Home() {
     .from("property_table")
     .select(`property_title, property_units, vacant_units, units, slug`)
     .eq("agent_id", data?.user?.id)
+    .returns<PropertyProps>()
 
   const {data: tenants, error: tenantsError} = await supabase
     .from("tenants")
@@ -34,8 +33,8 @@ export default async function Home() {
     return <p className='pt-20 text-center font-bold text-orange'>An Error Occured</p>
   }
 
-  const totalProperties = properties?.reduce((accumulator, currntValue) => accumulator + currntValue.units, 0);
-  const vacantProperties = properties?.reduce((accumulator, currentValue) => accumulator + currentValue.vacant_units, 0);
+  const totalProperties = properties?.reduce((accumulator: number, currntValue: PropertyProps) => accumulator + currntValue.units, 0);
+  const vacantProperties = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.vacant_units, 0);
   
   const preExpired = () => {
     let counter = 0;

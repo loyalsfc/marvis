@@ -8,12 +8,12 @@ import PropertyImages from './property-images/property-images';
 import PropertyBasicInfo from './property-basic-info/property-basic-info';
 import TabButton from './tab-button/tab-button';
 import { CurrentTab } from '@/utils/utils';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/lib/hooks/hooks';
 import TooltipModal from '../tooltip/tooltip';
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from 'react-toastify';
+import { createClient } from '@/utils/supabase/client';
 
 interface Props{
   existingOwners: OwnerProp[] | null
@@ -23,7 +23,7 @@ function PropertyForm({existingOwners}: Props) {
   const imagesId = uuidv4();
   const user = useAppSelector((state) => state.user.user);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<SelectedTab>('Basic')
   const [selectedFile, setSelectedFile] = useState<PropertyImagePreview[]>([]);

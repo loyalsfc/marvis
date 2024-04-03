@@ -3,10 +3,11 @@
 import React, { useRef, useState } from 'react'
 import { Button } from '../ui/button'
 import ModalWrapper from '../modals/wrapper'
-import { supabase } from '@/utils/utils'
 import { useRouter } from 'next/navigation'
+import { createClient } from '@/utils/supabase/client'
 
 function DeleteApplication({applicationId}:{applicationId: string}) {
+    const supabase = createClient()
     const closeBtnRef = useRef<HTMLButtonElement>(null)
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()

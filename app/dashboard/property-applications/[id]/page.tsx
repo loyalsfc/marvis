@@ -1,10 +1,9 @@
 import ConfirmApplication from '@/components/application-modals/confirm-application';
 import ReviewApplication from '@/components/application-modals/review-application';
 import { Button } from '@/components/ui/button';
+import { createClient } from '@/utils/supabase/server';
 import { downloadImage } from '@/utils/utils';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
@@ -13,9 +12,8 @@ export const metadata: Metadata = {
     title: "Confirm Property Application"
 }
 
-const supabase = createServerComponentClient({cookies})
-
 async function Page({params}:{params: {id:string}}) {
+    const supabase = createClient();
     const {data: user} = await supabase.auth.getUser();
     const {data, error} = await supabase
         .from("property_applications")

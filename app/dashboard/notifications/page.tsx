@@ -1,12 +1,10 @@
 import Notification from '@/components/notification/notification'
 import { notifications } from '@/utils/utils'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import React from 'react'
-import { cookies } from 'next/headers';
 import EmptyPages from '@/components/empty-pages/empty-pages';
 import emptyNotification from '../../../public/notification.png'
 import { Metadata } from 'next';
-const supabase = createServerComponentClient({cookies})
+import { createClient } from '@/utils/supabase/server';
 
 
 export const metadata: Metadata = {
@@ -14,6 +12,7 @@ export const metadata: Metadata = {
 }
 
 async function Page() {
+  const supabase = createClient();
   const {data, error} = await supabase.auth.getUser();
   const {data: properties, error: propertiesError} = await supabase
     .from("property_table")

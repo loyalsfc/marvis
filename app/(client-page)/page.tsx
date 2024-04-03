@@ -13,16 +13,12 @@ import { Button } from '@/components/ui/button'
 import { FaAngleRight } from 'react-icons/fa'
 import { AlignHorizontalJustifyEnd, BadgeDollarSignIcon, BarChart, Check, Home, PercentSquareIcon, PlaySquare, Search } from 'lucide-react'
 import PropertyCounter from '@/components/client/property-counter/property-counter'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
 import PropertyCard from '@/components/client/property-card/property-card'
 import Link from 'next/link'
 import testimony1 from "../../public/attend1.jpg" 
 import testimony2 from "../../public/attend2.jpg" 
 import testimony3 from "../../public/attend3.jpg"
-import { getFeaturedImage } from '@/utils/utils'
-
-const supabase = createServerComponentClient({cookies});
+import { getFeaturedImage, supabase } from '@/utils/utils'
 
 async function Page() {
     const {data} = await supabase.from("property_table")

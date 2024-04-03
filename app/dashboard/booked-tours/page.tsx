@@ -1,25 +1,22 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
 import React from 'react'
 import emptyTour from '../../../public/empty-tour.png'
 import BookedTours from '@/components/booked-tours/booked-tours'
 import EmptyPages from '@/components/empty-pages/empty-pages'
 import { Metadata } from 'next'
-const supabase = createServerComponentClient({cookies})
+import { createClient } from '@/utils/supabase/server'
 
 export const metadata: Metadata = {
     title: "Booked Tours"
 }
 
 async function Page() {
+    const supabase = createClient()
     const {data: user} = await supabase.auth.getUser();
     const {data, error} = await supabase
         .from("booked_tours")
         .select()
         .eq("agent_id", user.user?.id)
         .order("id", {ascending: false})
-
-    console.log(data)
 
     return (
         <div className='page-wrapper h-full flex flex-col'>

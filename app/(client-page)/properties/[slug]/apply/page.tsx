@@ -1,14 +1,11 @@
 import TenantApplication from '@/components/tenant-form/tenant-registration/tenant-registration'
 import React from 'react'
-import { cookies } from 'next/headers'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Metadata } from 'next'
+import { supabase } from '@/utils/utils'
 
 export const metadata: Metadata = {
     title: "Apply For Property"
 }
-
-const supabase = createServerComponentClient({cookies})
 
 async function Page({params}:{params: {slug: string}}) {
     const {data, error} = await supabase
