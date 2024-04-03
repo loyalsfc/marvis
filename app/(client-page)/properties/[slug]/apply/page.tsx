@@ -8,8 +8,9 @@ export const metadata: Metadata = {
     title: "Apply For Property"
 }
 
+const supabase = createServerComponentClient({cookies})
+
 async function Page({params}:{params: {slug: string}}) {
-    const supabase = createServerComponentClient({cookies})
     const {data, error} = await supabase
         .from("property_table")
         .select(`agent_id, property_title`)

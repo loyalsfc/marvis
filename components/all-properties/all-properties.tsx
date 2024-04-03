@@ -6,7 +6,7 @@ import FilterBtn from "../filter-btn/filter-btn";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useAppSelector } from "@/lib/hooks/hooks";
-import { cn, supabase } from "@/utils/utils";
+import { cn, priceToString, supabase } from "@/utils/utils";
 import {DeleteProperty} from "../deleteProperty/delete-property";
 import { Filter, PlusSquare } from "lucide-react";
 import { toast } from "react-toastify";
@@ -85,7 +85,7 @@ export function AllProperties({property}:{property: any[] | null}){
                             <tr>
                                 <th className="p-2">Name</th>
                                 <th className="p-2">Address</th>
-                                <th className="p-2">Price</th>
+                                <th className="p-2">Amount(₦)</th>
                                 <th className="p-2 hidden min-[1200px]:table-cell">Type</th>
                                 <th className="p-2 hidden min-[1200px]:table-cell">Location</th>
                                 <th className="p-2">Units</th>
@@ -109,7 +109,7 @@ export function AllProperties({property}:{property: any[] | null}){
                                             <td className="p-2 text-end">
                                                 <p className="min-w-[200px]">{item.property_address}</p>
                                             </td>
-                                            <td className="text-center p-2">{item.rent_price}</td>
+                                            <td className="text-right p-2">{priceToString(item.rent_price)}</td>
                                             <td className="text-center p-2 hidden min-[1200px]:table-cell">{item.property_type}</td>
                                             <td className="text-center p-2 hidden min-[1200px]:table-cell">{item.property_location}</td>
                                             <td className="text-center p-2">{item.units}</td>

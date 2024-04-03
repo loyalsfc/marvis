@@ -9,9 +9,9 @@ export const metadata: Metadata = {
     title: "Edit Property"
 }
 
-async function Page({params}:{params: {slug: string[]}}) {
-    const supabase = createServerComponentClient({cookies});
+const supabase = createServerComponentClient({cookies});
 
+async function Page({params}:{params: {slug: string[]}}) {
     const { data } = await supabase
         .from('property_table')
         .select(`

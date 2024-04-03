@@ -25,12 +25,13 @@ export const metadata: Metadata = {
     title: "Properties"
 }
 
+const supabase = createServerComponentClient({cookies});
+
 async function Page({
     searchParams
 }:{
     searchParams: { [key: string]: string | undefined }
 }) {
-    const supabase = createServerComponentClient({cookies});
 
     const locationParams = (searchParams?.location === "all" || !searchParams?.location) ? "" : "property_location";
     const limitParams = searchParams?.limit ? parseInt(searchParams.limit) : 0;

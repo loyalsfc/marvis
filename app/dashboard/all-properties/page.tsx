@@ -3,14 +3,13 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Metadata } from 'next';
 import React from 'react'
 import { cookies } from 'next/headers';
+const supabase = createServerComponentClient({cookies})
 
 export const metadata: Metadata = {
   title: "All Properties"
 }
 
 async function Page() {
-  const supabase = createServerComponentClient({cookies})
-
   const { data: {user}, error } = await supabase.auth.getUser();
   const { data } = await supabase
     .from('property_table')

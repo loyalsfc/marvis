@@ -27,10 +27,11 @@ interface Data {
 
 export const metadata: Metadata = {
     title: "Property Applications"
-  }
+}
+
+const supabase = createServerComponentClient({cookies})
 
 async function Page() {
-    const supabase = createServerComponentClient({cookies})
     const {data: user} = await supabase.auth.getUser();
     const {data, error} = await supabase
         .from("property_applications")
