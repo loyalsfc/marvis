@@ -1,15 +1,12 @@
 import Properties from '@/components/all-properties/properties'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server';
 import { Metadata, ResolvingMetadata } from 'next';
 import React from 'react'
-import { cookies } from 'next/headers';
 
 type Props = {
     params: { slug: string }
     searchParams: { [key: string]: string | string[] | undefined }
 }
-
-const supabase = createServerComponentClient({cookies});
    
 export async function generateMetadata(
     { params }: Props,
@@ -17,6 +14,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     // read route params
     const slug = params.slug as string;
+    const supabase = createClient()
     const { data } = await supabase.from('property_table').select('property_title').eq('slug', slug)
    
     // optionally access and extend (rather than replace) parent metadata
@@ -31,7 +29,7 @@ export async function generateMetadata(
 }
 
 async function Page({ params }: { params: { slug: string } }) {
-
+    const supabase = createClient()
     const { data } = await supabase
         .from('property_table')
         .select(`

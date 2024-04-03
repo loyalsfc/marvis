@@ -1,17 +1,15 @@
 import { OwnerProp } from '@/@types';
 import EditForm from '@/components/property-edit/edit-form';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server';
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import React from 'react'
 
 export const metadata: Metadata = {
     title: "Edit Property"
 }
 
-const supabase = createServerComponentClient({cookies});
-
 async function Page({params}:{params: {slug: string[]}}) {
+    const supabase = createClient()
     const { data } = await supabase
         .from('property_table')
         .select(`

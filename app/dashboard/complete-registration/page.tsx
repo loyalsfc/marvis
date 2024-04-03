@@ -1,17 +1,15 @@
 import { AgentDetails } from '@/@types'
 import Settings from '@/components/settings/settings'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClient } from '@/utils/supabase/server'
 import { Metadata } from 'next'
-import { cookies } from 'next/headers'
 import React from 'react'
-const supabase = createServerComponentClient({cookies})
-
 
 export const metadata: Metadata = {
     title: "Complete Registration"
 }
 
 async function Page() {
+    const supabase = createClient()
     const {data, error} = await supabase.auth.getUser()
     const {data: userData, error: userError} = await supabase
         .from("agents_table")

@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
 import { Quicksand } from 'next/font/google'
 import Aside from '@/components/aside/sidebar'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
 import ReduxProvider from '@/components/reduxProvider/reduxProvider'
-const supabase = createServerComponentClient({cookies})
+import { createClient } from '@/utils/supabase/server'
+import { redirect } from 'next/navigation'
 
 const inter = Quicksand({ 
   weight: ["300", "400", "500", "600", "700"],
@@ -20,7 +19,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const supabase = createClient()
   const {data, error} = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect('/')
+  }
 
   const {data: userData, error: userError} = await supabase
         .from("agents_table")

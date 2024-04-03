@@ -3,11 +3,12 @@
 import React, { FormEvent, useRef, useState } from 'react'
 import FormControl from '../form-control/form-control'
 import AuthBtn from '@/components/auth-btn/auth-btn'
-import { supabase } from '@/utils/utils'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import { createClient } from '@/utils/supabase/client'
 
 function NewPassword() {
+    const supabase = createClient()
     const router = useRouter();
     const [formData, setFormData] = useState({
         newPassword: "",

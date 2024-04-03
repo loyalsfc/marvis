@@ -6,10 +6,10 @@ import ErrorMessage from '../error-message/error-message'
 import FormControl from '../form-control/form-control';
 import AuthBtn from '@/components/auth-btn/auth-btn';
 import Link from 'next/link';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch } from '@/lib/hooks/hooks';
 import { login } from '@/lib/features/user/user';
+import { createClient } from '@/utils/supabase/client';
 
 function Login() {
   const dispatch = useAppDispatch()
@@ -22,7 +22,7 @@ function Login() {
     isShown: false, 
     text: "Password does not match"
   });
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
   const router = useRouter();
 
   const updateForm = (event: any) => {
@@ -51,6 +51,7 @@ const handleSubmit = async(e: FormEvent) => {
   }
 
   submitBtnRef.current!.disabled = true;
+  
   const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
@@ -60,6 +61,7 @@ const handleSubmit = async(e: FormEvent) => {
     dispatch(login(data.user));
     router.push("/dashboard");
   }
+
   if(error){
     setFormError({
       isShown: true, 

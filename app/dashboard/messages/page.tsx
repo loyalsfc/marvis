@@ -1,18 +1,17 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
 import React from 'react'
 import moment from "moment"
 import Link from 'next/link'
 import emptyMessage from '../../../public/empty-messages.png'
 import EmptyPages from '@/components/empty-pages/empty-pages'
 import { Metadata } from 'next'
-const supabase = createServerComponentClient({cookies})
+import { createClient } from '@/utils/supabase/server'
 
 export const metadata: Metadata = {
     title: "Messages"
 }
 
 async function Page() {
+    const supabase = createClient()
     const {data: user} = await supabase.auth.getUser();
     const {data, error} = await supabase
         .from("messages")

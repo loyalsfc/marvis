@@ -3,15 +3,14 @@ import { Rubik_Puddles } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import FooterList from '@/components/footer/footer-list'
 import Header from '@/components/header/header'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
-
-const supabase = createServerComponentClient({cookies})
+import { createClient } from '@/utils/supabase/server'
 
 const rubikPuddles = Rubik_Puddles({weight: "400", subsets: ["latin"]})
 
 async function Layout({children}:{children: ReactNode}) {
+    const supabase = createClient()
     const {data} = await supabase.auth.getUser();
+    console.log(data)
 
     return (
         <div className='bg-white flex flex-col min-h-screen'>

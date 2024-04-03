@@ -1,6 +1,4 @@
 import EmptyPages from '@/components/empty-pages/empty-pages'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
 import React from 'react'
 import emptyImage from '../../../public/empty-request.png'
 import Image from 'next/image'
@@ -9,6 +7,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import DeleteApplication from '@/components/application-modals/delete-application'
 import { Metadata } from 'next'
+import { createClient } from '@/utils/supabase/server'
 
 interface Data {
     id: any;
@@ -29,9 +28,8 @@ export const metadata: Metadata = {
     title: "Property Applications"
 }
 
-const supabase = createServerComponentClient({cookies})
-
 async function Page() {
+    const supabase = createClient();
     const {data: user} = await supabase.auth.getUser();
     const {data, error} = await supabase
         .from("property_applications")

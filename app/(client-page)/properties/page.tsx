@@ -1,8 +1,7 @@
 import PropertyList from '@/components/client/property-list/property-list'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import React from 'react'
-import { cookies } from 'next/headers';
 import { Metadata } from 'next';
+import { supabase } from '@/utils/utils';
 
 const priceFilter = (key: string): {start: number, end: number} => {
     switch (key) {
@@ -24,8 +23,6 @@ const priceFilter = (key: string): {start: number, end: number} => {
 export const metadata: Metadata = {
     title: "Properties"
 }
-
-const supabase = createServerComponentClient({cookies});
 
 async function Page({
     searchParams

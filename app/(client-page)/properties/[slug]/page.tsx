@@ -1,10 +1,8 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import Link from 'next/link'
 import React from 'react'
 import { FaAngleLeft } from 'react-icons/fa'
-import { cookies } from 'next/headers'
 import PropertyPage from '@/components/client/property-page/property-page'
-import { getFeaturedImage } from '@/utils/utils'
+import { getFeaturedImage, supabase } from '@/utils/utils'
 import PropertyCard from '@/components/client/property-card/property-card'
 import GalleryImages from '@/components/client/gallery-images/gallery-images'
 import { Metadata, ResolvingMetadata } from 'next'
@@ -13,8 +11,6 @@ type Props = {
     params: { slug: string }
     searchParams: { [key: string]: string | string[] | undefined }
 }
-
-const supabase = createServerComponentClient({cookies});
 
 export async function generateMetadata(
     { params }: Props,
