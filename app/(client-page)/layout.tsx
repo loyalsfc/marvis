@@ -6,10 +6,11 @@ import Header from '@/components/header/header'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 
+const supabase = createServerComponentClient({cookies})
+
 const rubikPuddles = Rubik_Puddles({weight: "400", subsets: ["latin"]})
 
 async function Layout({children}:{children: ReactNode}) {
-    const supabase = createServerComponentClient({cookies})
     const {data} = await supabase.auth.getUser();
 
     return (

@@ -6,13 +6,13 @@ import Link from 'next/link'
 import emptyMessage from '../../../public/empty-messages.png'
 import EmptyPages from '@/components/empty-pages/empty-pages'
 import { Metadata } from 'next'
+const supabase = createServerComponentClient({cookies})
 
 export const metadata: Metadata = {
     title: "Messages"
 }
 
 async function Page() {
-    const supabase = createServerComponentClient({cookies})
     const {data: user} = await supabase.auth.getUser();
     const {data, error} = await supabase
         .from("messages")

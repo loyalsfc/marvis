@@ -22,9 +22,9 @@ import testimony2 from "../../public/attend2.jpg"
 import testimony3 from "../../public/attend3.jpg"
 import { getFeaturedImage } from '@/utils/utils'
 
+const supabase = createServerComponentClient({cookies});
 
 async function Page() {
-    const supabase = createServerComponentClient({cookies});
     const {data} = await supabase.from("property_table")
         .select()
         .limit(6)

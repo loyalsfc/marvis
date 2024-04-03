@@ -13,8 +13,9 @@ export const metadata: Metadata = {
     title: "Confirm Property Application"
 }
 
+const supabase = createServerComponentClient({cookies})
+
 async function Page({params}:{params: {id:string}}) {
-    const supabase = createServerComponentClient({cookies})
     const {data: user} = await supabase.auth.getUser();
     const {data, error} = await supabase
         .from("property_applications")

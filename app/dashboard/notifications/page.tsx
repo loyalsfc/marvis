@@ -6,13 +6,14 @@ import { cookies } from 'next/headers';
 import EmptyPages from '@/components/empty-pages/empty-pages';
 import emptyNotification from '../../../public/notification.png'
 import { Metadata } from 'next';
+const supabase = createServerComponentClient({cookies})
+
 
 export const metadata: Metadata = {
   title: "Notifications"
 }
 
 async function Page() {
-  const supabase = createServerComponentClient({cookies})
   const {data, error} = await supabase.auth.getUser();
   const {data: properties, error: propertiesError} = await supabase
     .from("property_table")

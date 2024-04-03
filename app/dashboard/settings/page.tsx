@@ -4,13 +4,14 @@ import React from 'react'
 import { cookies } from 'next/headers'
 import { AgentDetails } from '@/@types'
 import { Metadata } from 'next'
+const supabase = createServerComponentClient({cookies})
+
 
 export const metadata: Metadata = {
     title: "Settings"
 }
 
 async function Page() {
-    const supabase = createServerComponentClient({cookies})
     const {data, error} = await supabase.auth.getUser()
     const {data: userData, error: userError} = await supabase
         .from("agents_table")

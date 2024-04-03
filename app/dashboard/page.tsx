@@ -6,10 +6,10 @@ import { daysToExpire, notifications } from '@/utils/utils';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
+const supabase = createServerComponentClient({cookies})
 
 export default async function Home() {
 
-  const supabase = createServerComponentClient({cookies})
   const {data, error} = await supabase.auth.getUser();
   const full_name = data?.user?.user_metadata?.full_name
 
