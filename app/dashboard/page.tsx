@@ -22,7 +22,7 @@ export default async function Home() {
     .from("property_table")
     .select(`property_title, property_units, vacant_units, units, slug`)
     .eq("agent_id", data?.user?.id)
-    .returns<PropertyProps>()
+    .returns<PropertyProps[]>()
 
   const {data: tenants, error: tenantsError} = await supabase
     .from("tenants")
