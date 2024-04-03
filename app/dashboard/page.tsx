@@ -32,9 +32,10 @@ export default async function Home() {
   if(error || userError || propertiesError || tenantsError){
     return <p className='pt-20 text-center font-bold text-orange'>An Error Occured</p>
   }
+  console.log(properties[0].units)
+  const totalProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.units, 0);
+  const vacantProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.vacant_units, 0);
 
-  const totalProperties = properties?.reduce((accumulator: number, currntValue: PropertyProps) => accumulator + currntValue.units, 0);
-  const vacantProperties = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.vacant_units, 0);
   
   const preExpired = () => {
     let counter = 0;
