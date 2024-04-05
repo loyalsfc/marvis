@@ -3,12 +3,12 @@
 import React, {useRef, useState} from 'react'
 import FormControl from '../form-control/form-control'
 import Link from 'next/link';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import ErrorMessage from '../error-message/error-message';
 import FormGreetings from '../form-greetings/form-greetings';
 import AuthBtn from '@/components/auth-btn/auth-btn';
 import { useRouter } from 'next/navigation';
 import { getURL } from '@/utils/utils';
+import { createClient } from '@/utils/supabase/client';
 
 interface FormProps {
     full_name: string;
@@ -21,7 +21,7 @@ interface FormProps {
 
 function Register() {
     const router = useRouter();
-    const supabase = createClientComponentClient();
+    const supabase = createClient();
     const [showTermsNotAccepted, setShowTermsNotAccepted] = useState<boolean>(false);
     const submitBtnRef = useRef<HTMLButtonElement>(null);
     const [formError, setFormError] = useState<{isShown: boolean, text: string}>({
@@ -86,7 +86,7 @@ function Register() {
             return;
         }
         submitBtnRef.current!.disabled = true;
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
@@ -107,19 +107,16 @@ function Register() {
             return;
         }
 
-        const {data:userData, error: userError} = await supabase
+        const {error: userError} = await supabase
             .from("agents_table")
-            .insert({full_name, phone_number: mobile_number})
+            .insert({full_name, phone_number: mobile_number, email, agent_id: data.user?.id})
 
         submitBtnRef.current!.disabled = false;
 
-        if(userError){
+        if(!userError){
+            console.log("/confirmation")
             router.push("/confirmation")
-        } else {
-            
         }
-        
-        
     }
 
     return (

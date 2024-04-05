@@ -5,10 +5,12 @@ import FormGreetings from '../form-greetings/form-greetings'
 import FormControl from '../form-control/form-control'
 import AuthBtn from '@/components/auth-btn/auth-btn'
 import Link from 'next/link';
-import { getURL, supabase } from '@/utils/utils'
+import { getURL } from '@/utils/utils'
 import { toast } from 'react-toastify'
+import { createClient } from '@/utils/supabase/client'
 
 function ForgetPassword() {
+    const supabase = createClient();
     const [email, setEmail] = useState("");
     const submitBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -22,7 +24,7 @@ function ForgetPassword() {
         }
 
         submitBtnRef.current!.disabled = true;
-        console.log(email)
+        
         const {error} = await supabase.auth.resetPasswordForEmail(email, {
             redirectTo: `${getURL()}new-password`
         })
