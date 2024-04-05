@@ -114,7 +114,6 @@ function Register() {
         submitBtnRef.current!.disabled = false;
 
         if(!userError){
-            console.log("/confirmation")
             router.push("/confirmation")
         }
     }

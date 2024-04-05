@@ -74,7 +74,7 @@ export interface PropertyProps {
     bedroom:string;
     bath:string;
     year_built:string;
-    units:string;
+    units:number;
     video_url:string;
     additional_details: FeaturesProp[],
     features: string[] | null,
@@ -85,7 +85,7 @@ export interface PropertyProps {
         url: string,
         isMarkedFeatured: boolean
       }[],
-    vacant_units: 4,
+    vacant_units: number,
     property_units: {
         unit: number,
         tenant: string,

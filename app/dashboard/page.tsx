@@ -33,8 +33,8 @@ export default async function Home() {
     return <p className='pt-20 text-center font-bold text-orange'>An Error Occured</p>
   }
 
-  // const totalProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.units, 0);
-  // const vacantProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.vacant_units, 0);
+  const totalProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.units, 0);
+  const vacantProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.vacant_units, 0);
 
   
   const preExpired = () => {
@@ -89,12 +89,12 @@ export default async function Home() {
             <PropertyCountCard
               title='Total'
               subtite='Properties'
-              count={200}
+              count={totalProperties}
             />
             <PropertyCountCard
               title='Vacant'
               subtite='Properties'
-              count={19}
+              count={vacantProperties}
             />
             <PropertyCountCard
               title='Pre-expired'

@@ -108,7 +108,7 @@ function Aside({
                     link='/notifications'
                     text='Notification'
                     path={pathName}
-                    unread={7}
+                    // unread={7}
                 />
                 <Navs
                     Icon={SettingsIcon}
