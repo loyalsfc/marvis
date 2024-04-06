@@ -32,7 +32,7 @@ export interface PropertyDetailProp{
     bedroom: string,
     bath: string,
     year_built: string,
-    units: string,
+    units: number,
     video_url: string,
     property_label: string,
     property_label_color: string,
