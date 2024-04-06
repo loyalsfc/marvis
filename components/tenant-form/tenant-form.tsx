@@ -10,20 +10,23 @@ import ImagePreview from '../property-form/image-preview/image-preview'
 import Divider from '../divider/divider'
 import { AspectRatio } from '../ui/aspect-ratio'
 import Image from 'next/image'
-import { downloadImage, supabase } from '@/utils/utils'
+import { downloadImage } from '@/utils/utils'
 import { FaTrash } from 'react-icons/fa'
-import { useRouter } from 'next/navigation'
 import { formSchema, tenantFormTypes } from './formSchema'
+import { toast } from 'react-toastify'
+import loader from "../../public/loader.gif"
+import { createClient } from '@/utils/supabase/client'
 
 interface Props {
     saveTenant:(values: tenantFormTypes, userIdentification: string, avatar: string) => void
 }
 
 function TenantForm({saveTenant}: Props) {
+    const supabase = createClient();
     const [avatar, setAvatar] = useState<string>("public/avatar.png");
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
-    const [userIdentification, setUserIdentification] = useState<string>("cards/default_card.svg");
-    const router = useRouter()
+    const [userIdentification, setUserIdentification] = useState<string>("cards/card.png");
+    const [uploading, setUploading] = useState(false)
     const form = useForm<tenantFormTypes>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -37,7 +40,7 @@ function TenantForm({saveTenant}: Props) {
 
     const uploadAvatar: ChangeEventHandler<HTMLInputElement> = async (event) => {
         try {
-            // setUploading(true)
+            setUploading(true)
 
             if (!event.target.files || event.target.files.length === 0) {
                 throw new Error('You must select an image to upload.')
@@ -46,8 +49,11 @@ function TenantForm({saveTenant}: Props) {
             const file = event.target.files[0]
             const fileExt = file.name.split('.').pop()
             const filePath = `cards/${'uid'}-${Math.random()}.${fileExt}`
-        
-            const { error: uploadError } = await supabase.storage.from('identity_cards').upload(filePath, file)
+            console.log(filePath);
+            const { error: uploadError } = await supabase
+                .storage
+                .from('identity_cards')
+                .upload(filePath, file)
 
             if (uploadError) {
                 throw uploadError
@@ -56,9 +62,10 @@ function TenantForm({saveTenant}: Props) {
             // onUpload(filePath)
             setUserIdentification(filePath)
         } catch (error) {
-            alert('Error uploading avatar!')
+            console.log(error)
+            toast.error('Error uploading avatar!')
         } finally {
-            // setUploading(false)
+            setUploading(false)
         }
     }
 
@@ -68,7 +75,7 @@ function TenantForm({saveTenant}: Props) {
             .from('identity_cards')
             .remove([userIdentification]);
         if(data){
-            setUserIdentification("cards/default_card.svg");
+            setUserIdentification("cards/card.png");
         }
     }
 
@@ -138,7 +145,7 @@ function TenantForm({saveTenant}: Props) {
             <div>
                 <h4 className='text-center mx-auto max-w-md'>Upload a scanned copy the tenant ID in one of this format <span className='font-bold'>PNG</span>, <span className='font-bold'>JPEG</span> or <span className='font-bold'>SVG</span></h4>
                 <div className="max-w-[450px] mx-auto my-8 relative">
-                    {userIdentification !== "cards/default_card.svg" && <button 
+                    {userIdentification !== "cards/card.png" && <button 
                         type='button' 
                         className='image-preview-btn absolute top-2 right-2 z-10'
                         onClick={deleteImage}
@@ -146,7 +153,18 @@ function TenantForm({saveTenant}: Props) {
                         <FaTrash/>
                     </button>}
                     <AspectRatio ratio={3.375 / 2.125}>
-                        <Image src={downloadImage(userIdentification, "identity_cards")} fill alt="Image" className="rounded-md object-cover" />
+                        {!uploading ? <Image 
+                            src={downloadImage(userIdentification, "identity_cards")} 
+                            fill 
+                            alt="Image" 
+                            className="rounded-md object-cover" 
+                        /> :
+                        <Image
+                            src={loader}
+                            fill
+                            alt='Loading gif'
+                            className='object-contain'
+                        />}
                     </AspectRatio>
                 </div>
                 <div>

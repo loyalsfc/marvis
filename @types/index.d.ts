@@ -85,7 +85,7 @@ export interface PropertyProps {
         url: string,
         isMarkedFeatured: boolean
       }[],
-    vacant_units: 4,
+    vacant_units: number,
     property_units: {
         unit: number,
         tenant: string,
