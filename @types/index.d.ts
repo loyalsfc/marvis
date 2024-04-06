@@ -74,7 +74,7 @@ export interface PropertyProps {
     bedroom:string;
     bath:string;
     year_built:string;
-    units:number;
+    units:string;
     video_url:string;
     additional_details: FeaturesProp[],
     features: string[] | null,

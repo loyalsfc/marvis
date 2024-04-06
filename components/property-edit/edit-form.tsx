@@ -21,8 +21,8 @@ interface Props{
 
 function EditForm({existingOwners, propertyDetails}: Props) {
     
-    const {id, property_title, property_address, rent_price, property_type, property_location, bedroom, bath, year_built, units, property_description, property_image, video_url, property_label, label_color, additional_details, features, property_owner, property_units, vacant_units} = propertyDetails![0];
-    const imagesId = uuidv4();
+  const {id, property_title, property_address, rent_price, property_type, property_location, bedroom, bath, year_built, units, property_description, property_image, video_url, property_label, label_color, additional_details, features, property_owner, property_units, vacant_units} = propertyDetails![0];
+  const imagesId = uuidv4();
   const user = useAppSelector((state) => state.user.user);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const supabase = createClientComponentClient();

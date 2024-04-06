@@ -33,7 +33,7 @@ export default async function Home() {
     return <p className='pt-20 text-center font-bold text-orange'>An Error Occured</p>
   }
 
-  const totalProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.units, 0);
+  const totalProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + parseInt(currentValue.units), 0);
   const vacantProperties: number = properties?.reduce((accumulator: number, currentValue: PropertyProps) => accumulator + currentValue.vacant_units, 0);
 
   
