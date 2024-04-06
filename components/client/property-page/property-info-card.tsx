@@ -3,7 +3,7 @@ import React from 'react'
 interface Props {
     Icon: React.FC;
     title: string;
-    count: string;
+    count: number | string;
 }
 
 function PropertyInfoCard({Icon, title, count}: Props) {

@@ -30,10 +30,10 @@ function PropertyPage({data, slug}:Props) {
     
     function shareLink() {
         // Define the URL to share
-        const url = 'https://example.com'; // Replace with your actual URL
+        const url = 'https://marvis-woad.vercel.app/' + pathName; // Replace with your actual URL
   
         // Define the text to share (optional)
-        const text = 'Check out this link!';
+        const text = 'Check out this property on Marvis!';
   
         // Open the share dialog
         navigator.share({ url, text })
