@@ -122,7 +122,7 @@ function PropertyBasicInfo({formDetails, updateForm, setFormDetails}:Props) {
             <div className=''>
                 <FormControl
                     type='number'
-                    value={formDetails.units}
+                    value={formDetails.units.toString()}
                     handleChange={updateForm}
                     id='units'
                     label='Units'
