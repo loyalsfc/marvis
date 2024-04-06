@@ -139,7 +139,7 @@ function EditForm({existingOwners, propertyDetails}: Props) {
         label_color: property_label_color,
         vacant_units: units === formDetails.units ? formDetails.units : formDetails.units,
         agent_id: user?.id,
-        property_units: units === formDetails.units ? property_units : Array.from({length: parseInt(formDetails.units)}).map((_,index) => {
+        property_units: units === formDetails.units ? property_units : Array.from({length: formDetails.units}).map((_,index) => {
           return {
             unit: index + 1,
             tenant: null,
